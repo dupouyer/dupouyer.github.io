@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="游戏开发," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="属性纹理是 3D 渲染中的一个重要工具，存储着2维数组，可用于多种用途。常见的类型有，diffuse，normal，lightmap。一般在 fragment shader 中使用。 在游戏开发中需要注意纹理一下两个方面： 尺寸纹理尺寸必须为 2的冥常见尺寸有 256x256,1024x1024,2048x2048。尺寸越大受带宽影响 GPU 加载也越慢。所以必须控制游戏在一帧的时间内，纹理的加载">
+<meta name="keywords" content="游戏开发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/01/24/hello-world/index.html">
+<meta property="og:title" content="纹理">
+<meta property="og:url" content="http://yoursite.com/2018/05/14/texture/index.html">
 <meta property="og:site_name" content="BLOG">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="属性纹理是 3D 渲染中的一个重要工具，存储着2维数组，可用于多种用途。常见的类型有，diffuse，normal，lightmap。一般在 fragment shader 中使用。 在游戏开发中需要注意纹理一下两个方面： 尺寸纹理尺寸必须为 2的冥常见尺寸有 256x256,1024x1024,2048x2048。尺寸越大受带宽影响 GPU 加载也越慢。所以必须控制游戏在一帧的时间内，纹理的加载">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-24T15:01:18.000Z">
+<meta property="og:updated_time" content="2018-05-14T16:00:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="纹理">
+<meta name="twitter:description" content="属性纹理是 3D 渲染中的一个重要工具，存储着2维数组，可用于多种用途。常见的类型有，diffuse，normal，lightmap。一般在 fragment shader 中使用。 在游戏开发中需要注意纹理一下两个方面： 尺寸纹理尺寸必须为 2的冥常见尺寸有 256x256,1024x1024,2048x2048。尺寸越大受带宽影响 GPU 加载也越慢。所以必须控制游戏在一帧的时间内，纹理的加载">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/24/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/14/texture/"/>
 
 
 
 
 
-  <title>Hello World | BLOG</title>
+  <title>纹理 | BLOG</title>
   
 
 
@@ -232,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/24/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/texture/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dupouy">
@@ -249,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">纹理</h1>
         
 
         <div class="post-meta">
@@ -261,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T23:01:18+08:00">
-                2018-01-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T23:58:44+08:00">
+                2018-05-14
               </time>
             
 
@@ -299,15 +300,24 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>纹理是 3D 渲染中的一个重要工具，存储着2维数组，可用于多种用途。常见的类型有，diffuse，normal，lightmap。一般在 fragment shader 中使用。</p>
+<p>在游戏开发中需要注意纹理一下两个方面：</p>
+<h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>纹理尺寸必须为 2的冥常见尺寸有 256x256,1024x1024,2048x2048。<br>尺寸越大受带宽影响 GPU 加载也越慢。所以必须控制游戏在一帧的时间内，纹理的加载数量和大小。</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><ul>
+<li>RGBA8888<br>高清图，细节丰富，占用内存大</li>
+<li>RGBA4444<br>较清晰，细节有损失，比 32 位图内存小一半</li>
+<li>ETC1<br>GPU可直接读取，读取速度快，不支持 alpha 通道，清晰度低,占用内存小</li>
+<li>ETC2<br>GPU可直接读取，读取速度快，支持 alpha 通道，但是需要 OpenGl3.0 版本以上才支持</li>
+<li>PVRC<br>ios 下的GPU 格式，读取速度快，清晰度低，占用内存小</li>
+</ul>
+<p>在游戏开发中，需要根据具体物体的远近，大小，关注度，来选取合适的纹理尺寸来应用。</p>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="Batch"><a href="#Batch" class="headerlink" title="Batch"></a>Batch</h3><p>通过连续提交具有相同渲染状态的物体来减少GPU渲染状态的切换，提高渲染性能。</p>
+<h4 id="引擎上的优化"><a href="#引擎上的优化" class="headerlink" title="引擎上的优化"></a>引擎上的优化</h4><p>以 unity 为例，分为静态 batch 和动态 bacth</p>
+<ul>
+<li>静态 Batch<br>在场景资源打包时，将具有相同材质物体的网格数据存入一段内存中。在实际渲染时，提交的是这段内存中的网格数据。会增大游戏包体大小。</li>
+<li>动态 Batch<br>在运行时，把所有的物体变换到世界坐标后进行合并，实时使用 CPU 进行，对单次 batch 的物体数量有限制。</li>
+</ul>
+<h4 id="资源上的优化"><a href="#资源上的优化" class="headerlink" title="资源上的优化"></a>资源上的优化</h4><p>使用 TextureAtlas，使更多物体具有相同的渲染状态。</p>
 
       
     </div>
@@ -323,6 +333,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/游戏开发/" rel="tag"># 游戏开发</a>
+          
+        </div>
+      
 
       
       
@@ -332,15 +348,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/05/04/Unity/" rel="next" title="unity 总结">
+                <i class="fa fa-chevron-left"></i> unity 总结
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/04/Unity/" rel="prev" title="unity 总结">
-                unity 总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -463,7 +479,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">1.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺寸"><span class="nav-number">1.1.</span> <span class="nav-text">尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式"><span class="nav-number">1.2.</span> <span class="nav-text">格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能优化"><span class="nav-number">2.</span> <span class="nav-text">性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch"><span class="nav-number">2.1.</span> <span class="nav-text">Batch</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引擎上的优化"><span class="nav-number">2.1.1.</span> <span class="nav-text">引擎上的优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源上的优化"><span class="nav-number">2.1.2.</span> <span class="nav-text">资源上的优化</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

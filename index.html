@@ -229,6 +229,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/texture/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dupouy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/14/texture/" itemprop="url">纹理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T23:58:44+08:00">
+                2018-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>纹理是 3D 渲染中的一个重要工具，存储着2维数组，可用于多种用途。常见的类型有，diffuse，normal，lightmap。一般在 fragment shader 中使用。</p>
+<p>在游戏开发中需要注意纹理一下两个方面：</p>
+<h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>纹理尺寸必须为 2的冥常见尺寸有 256x256,1024x1024,2048x2048。<br>尺寸越大受带宽影响 GPU 加载也越慢。所以必须控制游戏在一帧的时间内，纹理的加载数量和大小。</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><ul>
+<li>RGBA8888<br>高清图，细节丰富，占用内存大</li>
+<li>RGBA4444<br>较清晰，细节有损失，比 32 位图内存小一半</li>
+<li>ETC1<br>GPU可直接读取，读取速度快，不支持 alpha 通道，清晰度低,占用内存小</li>
+<li>ETC2<br>GPU可直接读取，读取速度快，支持 alpha 通道，但是需要 OpenGl3.0 版本以上才支持</li>
+<li>PVRC<br>ios 下的GPU 格式，读取速度快，清晰度低，占用内存小</li>
+</ul>
+<p>在游戏开发中，需要根据具体物体的远近，大小，关注度，来选取合适的纹理尺寸来应用。</p>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="Batch"><a href="#Batch" class="headerlink" title="Batch"></a>Batch</h3><p>通过连续提交具有相同渲染状态的物体来减少GPU渲染状态的切换，提高渲染性能。</p>
+<h4 id="引擎上的优化"><a href="#引擎上的优化" class="headerlink" title="引擎上的优化"></a>引擎上的优化</h4><p>以 unity 为例，分为静态 batch 和动态 bacth</p>
+<ul>
+<li>静态 Batch<br>在场景资源打包时，将具有相同材质物体的网格数据存入一段内存中。在实际渲染时，提交的是这段内存中的网格数据。会增大游戏包体大小。</li>
+<li>动态 Batch<br>在运行时，把所有的物体变换到世界坐标后进行合并，实时使用 CPU 进行，对单次 batch 的物体数量有限制。</li>
+</ul>
+<h4 id="资源上的优化"><a href="#资源上的优化" class="headerlink" title="资源上的优化"></a>资源上的优化</h4><p>使用 TextureAtlas，使更多物体具有相同的渲染状态。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/04/Unity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -655,7 +792,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -663,6 +800,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
