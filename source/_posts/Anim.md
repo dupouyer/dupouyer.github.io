@@ -2,7 +2,7 @@
 title: 动画
 date: 2019-03-20 19:30:00
 updated: 2019-03-20 19:30:00
-categories：
+categories:
 - unity
 tags:
 - 动画
