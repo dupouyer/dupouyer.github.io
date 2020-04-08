@@ -1,6 +1,12 @@
 ---
 title: Unity 总结
 date: 2019-03-07 19:30:00
+updated: 2019-03-07 19:30:00
+categories: 
+- C#
+tags:
+- C#
+- 编程语言
 ---
 
 ## 业务
