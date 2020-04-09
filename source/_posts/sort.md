@@ -1,5 +1,5 @@
 ---
-title: 算法
+title: 排序
 date: 2020-04-08 19:12:00
 updated: 2020-04-08 19:12:00
 categories:
@@ -8,8 +8,6 @@ tags:
 - 算法
 - 排序
 ---
-
-# 排序算法
 
 ## 冒泡排序
 ![avatar](http://s0.lgstatic.com/i/image2/M01/91/0B/CgoB5l2IiW2AUgXzAEVU1vdS3ek726.gif)
