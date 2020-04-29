@@ -24,7 +24,7 @@ before_install:
 - npm install -g hexo-cli
 install:
 # 不用yarn的话这里改成 npm i 即可
-- npm install
+- npm i
 script:
 - hexo clean
 - hexo generate
