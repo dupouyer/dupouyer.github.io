@@ -12,7 +12,7 @@ tags:
 # 概念
 序列化是为了将对象存储（或传输）到内存、数据库或文件中，把对象状态转化为一组字节的过程
 
-![avatar](https://github.com/dupouyer/dupouyer.github.io/tree/hexo/source/_posts/img/2020_5_18/1.png)
+![avatar](https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_5_18/1.png)
 
 # Unity 如何序列化
 Unity 中 UnityEngine.Object 类提供序列化能力，任何继承自它的类（MonoBehaviour,ScriptableObject）， 都可被序列化。 其中大部分使用都是隐形的，开发中不需要在意。
@@ -59,7 +59,7 @@ public class TestData
 
 # Unity Edtior 对序列化数据的使用
 
-![avatar](https://github.com/dupouyer/dupouyer.github.io/tree/hexo/source/_posts/img/2020_5_18/2.png)
+![avatar](https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_5_18/2.png)
 
 Editor 通过修改序列化数据修改以及显示目标对象
 
@@ -119,7 +119,7 @@ public class BehaviorRunTimeEditor: Editor
    - 不会改变检查器的原始行为，而是扩展它 
    - 一个属性上能加不止一个DecoratorDrawer 
    - 数组或List上加DecoratorDrawer只会对第一个起作用。
-![avatar](https://github.com/dupouyer/dupouyer.github.io/tree/hexo/source/_posts/img/2020_5_18/3.png)
+![avatar](https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_5_18/3.png)
 
 # 问题的解决
 ## 不可序列化的类型
