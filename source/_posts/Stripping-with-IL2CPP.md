@@ -2,8 +2,8 @@
 title: Stripping with IL2CPP
 date: 2020-06-02 11:26:52
 updated: 2020-06-02 11:26:52
-categories:
-tags:
+categories: Unity
+tags: 优化
 ---
 
 # 目标
