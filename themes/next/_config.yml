@@ -649,7 +649,7 @@ needmoreshare2:
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters
-#google_site_verification:
+google_site_verification: googlea4810b94530a85ac
 
 # Google Analytics
 # google_analytics:
