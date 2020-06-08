@@ -17,7 +17,7 @@ Unity Profile
 - 加入结束标签 SwitchSceneComplete						
 ## 获得流程帧区间
 | Sample | 帧 |
-| :- | :- |
+| :--- | :---- |
 | StartSwtichScene | 68  |
 | SwitchSceneComplete | 71 |
 
