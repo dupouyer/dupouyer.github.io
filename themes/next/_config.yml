@@ -342,15 +342,15 @@ reward:
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
-  enable: false
-  title: "阅读最多"
+  enable: true
+  title: "推荐"
   display_in_home: true
   params:
     maxCount: 5
     PPMixingRate: 0.5
-    #isDate: false
-    #isImage: false
-    #isExcerpt: false
+    #isDate: true
+    #isImage: true
+    #isExcerpt: true
 
 # Post edit
 # Dependencies: https://github.com/hexojs/hexo-deployer-git

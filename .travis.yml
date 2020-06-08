@@ -27,7 +27,8 @@ install:
 - npm i
 script:
 - hexo clean
-- hexo generate --deploy
+- hexo generate
+- hexo deploy
 - hexo
 after_success:
 - git clone https://${BLOG}@github.com/dupouyer/dupouyer.github.io.git .deploy_git
