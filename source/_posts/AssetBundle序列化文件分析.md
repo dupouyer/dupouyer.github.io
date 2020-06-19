@@ -15,20 +15,20 @@ AssetBundle 在被加载后，不管通过何种方式加载，都会创建一�
 ## 资源大小
 分别创建两个大小不同的贴图 Texture1 和 Texture2 分别打进 texture1 和 texture2 两个 ab 包中，加载后对比 Size
 
-|AssetBundle|FileSize|ChangeSize|
-|:---:|:---:|:---:|
-|texture1|18.0 KB| ——|
-|texture1|18.0 KB| 0KB|
+|AssetBundle|TextureSize|FileSize|ChangeSize|
+|:---:|:---:|:---:|:---:|
+|texture1|512 x 512|18.0 KB| ——|
+|texture2|1024 x 1024|18.0 KB| 0KB|
 
 > 两者没有变化，File 不受原始素材大小影响
 
 ## Shader 类型
 创建创建使用两个不同 Shader 的 Material， 加载后对比
 
-|AssetBundle|FileSize|ChangeSize|
-|:---:|:---:|:---:|
-|mat1|123.9 KB| ——|
-|mat2|123.9 KB| 0KB|
+|AssetBundle|Shader|FileSize|ChangeSize|
+|:---:|:--:|:---:|:---:|
+|mat1|Standard|123.9 KB| ——|
+|mat2|Legacy|123.9 KB| 0KB|
 
 > 两者没有变化，File 不受 Shader 类型影响
 
