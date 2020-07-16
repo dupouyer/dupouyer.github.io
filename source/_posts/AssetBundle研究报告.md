@@ -166,6 +166,7 @@ Bundle 加载后，分为两部分存储，
 
 ### Texture 
 纹理大小不一样  
+
 |AssetBundle|TextureSize| AssetBundleSize|SerializedFileSize|
 |---|---|---|---|
 |texture1|512 x 512| 176 KB |18.0 KB |
