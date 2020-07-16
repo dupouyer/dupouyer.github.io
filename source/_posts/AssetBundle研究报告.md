@@ -166,6 +166,7 @@ Bundle 加载后，分为两部分存储，
 
 ### Texture 
 纹理大小不一样  
+
 |AssetBundle|TextureSize| AssetBundleSize|SerializedFileSize|
 |---|---|---|---|
 |texture1|512 * 512| 176 KB |18.0 KB |
@@ -173,6 +174,7 @@ Bundle 加载后，分为两部分存储，
 
 ### Shader 
 以拷贝出来的的 Standard Shader 为标准，分别增加其 Properties 和 SubShader  
+
 |AssetBundle|ShaderInfo| AssetBundleSize|SerializedFileSize|
 |---|---|---|---|
 |shader1|Copy From Standard| 110 KB | **121.6 KB** |
@@ -181,6 +183,7 @@ Bundle 加载后，分为两部分存储，
 
 ### Mesh 
 顶点数量不同  
+
 |AssetBundle| MeshInfo |AssetBundleSize|SerializedFileSize|
 |---|---|---|---|
 |mesh1| 0 verts 0 tris |9 KB| **23.2 KB** |
@@ -201,6 +204,7 @@ Asset 打包进行 AssetBundle 的序列化文件，并不受资源内容尺寸�
 ### Prefab 序列化尺寸 
 空 Prefab  
 复数空 Prefab 尺寸  
+
 |AssetBundle| Info |AssetBundleSize|SerializedFileSize|
 |---|---|---|---|
 | prefab1| 空的 Gameobject | 5 KB | **18.3 KB** |
