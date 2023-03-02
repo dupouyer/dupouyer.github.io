@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="yw5fuBedLnizIXXZqqOGURR5AmSeeSPvafg0NvF5QQ4">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="对 AssetBundle 的系统性研究报告">
+<meta name="keywords" content="AssetBundle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AssetBundle研究报告">
+<meta property="og:url" content="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="对 AssetBundle 的系统性研究报告">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/1.png">
+<meta property="og:image" content="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/2.png">
+<meta property="og:image" content="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/5.png">
+<meta property="og:image" content="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/3.png">
+<meta property="og:image" content="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/4.png">
+<meta property="og:updated_time" content="2020-06-24T14:32:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AssetBundle研究报告">
+<meta name="twitter:description" content="对 AssetBundle 的系统性研究报告">
+<meta name="twitter:image" content="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>AssetBundle研究报告 | BLOG</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">13</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">2</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">16</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dupouyer.github.io/2020/06/24/AssetBundle研究报告/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dupouy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AssetBundle研究报告
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-06-24 14:32:32" itemprop="dateCreated datePublished" datetime="2020-06-24T14:32:32+00:00">2020-06-24</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-description">对 AssetBundle 的系统性研究报告</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="AssetBundle-文件结构"><a href="#AssetBundle-文件结构" class="headerlink" title="AssetBundle 文件结构"></a>AssetBundle 文件结构</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><h3 id="The-AssetBundle-File"><a href="#The-AssetBundle-File" class="headerlink" title="The AssetBundle File"></a>The AssetBundle File</h3><p>AssetBundle File 是一个包含多个文件的 <strong>Archive</strong> , 其结构会有一些小的变化取决于是 normal AssetBundle 还是 Scene AssetBundle</p>
+<p>Normal AssetBundle<br><img src="/2020/06/24/AssetBundle研究报告/1.png" class="Normal AssetBundle Structure"></p>
+<p>Scene AssetBundle<br><img src="/2020/06/24/AssetBundle研究报告/2.png" class="Scene AssetBundle Structure"><br>　场景包还包含了预加载数据（PreloadData）、共享数据（shaderData）和全局光照数据（Global Illumination Data）并且针对场景及其内容的 Stream Loading 进行了优化</p>
+<h3 id="The-Manifest-File"><a href="#The-Manifest-File" class="headerlink" title="The Manifest File"></a>The Manifest File</h3><p>对于每个生成的 AssetBundle 都会有对应的 Manifest Bundle 生成。 文件内容以文本格式存储，可被任何文本编辑器打开。<br>Manifest文件仅用于检查增量构建，运行时不需要。因此不需要打包进正式发行的游戏中。<br>每个AssetBundle都有一个manifest文件，包含如下信息：</p>
+<ul>
+<li>CRC（循环冗余码）：资源文件的哈希码，在该AssetBundle中的所有资源有一个单一的哈希码，用于检查增量的构建。</li>
+<li>Type tree哈希码：在该AssetBundle中所有类型有一个单一的哈希码，用于检查增量的构建。</li>
+<li>Class types：该AssetBundle中所有的类类型。当为type tree做增量构建检查时将产生一个新的哈希码。</li>
+<li>Assets：该AssetBundle中所有明确包含的资源名字，依赖于该AssetBundle的其他AssetBundle。</li>
+<li>Dependencies： 依赖列表</li>
+</ul>
+<p>文件内容大体如下所示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ManifestFileVersion: 0</span><br><span class="line">CRC: 2422268106</span><br><span class="line">Hashes:</span><br><span class="line">  AssetFileHash:</span><br><span class="line">    serializedVersion: 2</span><br><span class="line">    Hash: 8b6db55a2344f068cf8a9be0a662ba15</span><br><span class="line">  TypeTreeHash:</span><br><span class="line">    serializedVersion: 2</span><br><span class="line">    Hash: 37ad974993dbaa77485dd2a0c38f347a</span><br><span class="line">HashAppended: 0</span><br><span class="line">ClassTypes:</span><br><span class="line">- Class: 91</span><br><span class="line">  Script: &#123;instanceID: 0&#125;</span><br><span class="line">Assets:</span><br><span class="line">  Asset_0: Assets/Mecanim/StateMachine.controller</span><br><span class="line">Dependencies: &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="文件结构分析"><a href="#文件结构分析" class="headerlink" title="文件结构分析"></a>文件结构分析</h2><p>把压缩数据解开后，就和非压缩模式没有差别，下面只讨论非压缩格式:</p>
+<p>AssetBundle由两部分组成：Header 和 DataSegment</p>
+<ul>
+<li>Header 中保存了版本号，数据类型，文件信息，等描述信息。其中文件信息记录了单个资源文件的描述信息以及文件的 offset 和 size。<br>文件信息记录了数据部分里面的所有单个资源的文件名以及在整个AssetBundle中<br>文件offset和size,通过这个信息可以直接获取到AssetBundle中的某一个文件的数据。  </li>
+<li>DataSegment 保存着实际的 Asset 文件内容</li>
+</ul>
+<p>文件头结构如下图：</p>
+<img src="/2020/06/24/AssetBundle研究报告/5.png" class="AssetBundle Compreesion File">
+<p>具体的序列化结构如下：<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里，所有的 int 都是以小端编码的 4 字节整数（不同于外部文件格式采用的大端编码）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// AssetBundle文件头结构</span></span><br><span class="line"><span class="keyword">struct</span> AssetBundleFileHead &#123;</span><br><span class="line">     <span class="keyword">struct</span> LevelInfo &#123;</span><br><span class="line">         unsigned <span class="keyword">int</span> PackSize;</span><br><span class="line">         unsigned <span class="keyword">int</span> UncompressedSize;</span><br><span class="line">     &#125;;</span><br><span class="line"> </span><br><span class="line">     <span class="keyword">string</span> FileID;</span><br><span class="line">     unsigned <span class="keyword">int</span> Version; <span class="comment">// bundle格式版本 3.5~4.x : Version == 3</span></span><br><span class="line">     <span class="keyword">string</span> MainVersion; <span class="comment">// </span></span><br><span class="line">     <span class="keyword">string</span> BuildVersion;</span><br><span class="line">     size_t MinimumStreamedBytes;</span><br><span class="line">     size_t HeaderSize;</span><br><span class="line">     size_t NumberOfLevelsToDownloadBeforeStreaming;</span><br><span class="line">     size_t LevelCount;</span><br><span class="line">     LevelInfo LevelList[];</span><br><span class="line">     size_t CompleteFileSize;</span><br><span class="line">     size_t FileInfoHeaderSize;</span><br><span class="line">     <span class="keyword">bool</span> Compressed;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> AssetFileHeader &#123;</span><br><span class="line">     <span class="keyword">struct</span> AssetFileInfo &#123;</span><br><span class="line">          <span class="keyword">string</span> name;</span><br><span class="line">          size_t offset; <span class="comment">//表示的是除去 HeaderSize 后的偏移量</span></span><br><span class="line">          size_t length;</span><br><span class="line">     &#125;;</span><br><span class="line">     size_t FileCount; <span class="comment">// 大多数情况只有一个</span></span><br><span class="line">     AssetFileInfo     File[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> AssetHeader &#123;</span><br><span class="line">    <span class="comment">// TypeTree 是对数据结构本身的描述，通过这个描述，就可以反序列化出每个对象</span></span><br><span class="line">    <span class="comment">//这个 TypeTree 对于 asset bundle 来说是可选的，因为数据结构的信息可以事先放置在引擎中（引擎多半只支持固有的数据类型）。在发布到移动设备上时，TypeTree 是不打包到 asset bundle 中的。</span></span><br><span class="line">     size_t TypeTreeSize; <span class="comment">// TypeTree 部分的大小</span></span><br><span class="line">     size_t FileSize;</span><br><span class="line">     unsigned <span class="keyword">int</span> Format;</span><br><span class="line">     size_t dataOffset;</span><br><span class="line">     size_t Unknown;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> ObjectHeader &#123;</span><br><span class="line">     <span class="keyword">struct</span> ObjectInfo &#123;</span><br><span class="line">          <span class="keyword">int</span> pathID; <span class="comment">// 每个对象都有唯一的字符串 path ，但是在 asset bundle 里并没有直接保存字符串，而是一个 hash 过的整数</span></span><br><span class="line">          <span class="keyword">int</span> offset; <span class="comment">// 相对当前 asset 块的</span></span><br><span class="line">          <span class="keyword">int</span> length;</span><br><span class="line">          <span class="keyword">byte</span> classID[<span class="number">8</span>]; <span class="comment">// Class ID的和具体类型的对应关系，在 Unity3d 的官方文档 可以查到。</span></span><br><span class="line">     &#125;;</span><br><span class="line">     <span class="keyword">int</span> ObjectCount;</span><br><span class="line">     ObjectInfo Object[];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> AssetTable &#123;</span><br><span class="line">     <span class="keyword">struct</span> AssetRef &#123;</span><br><span class="line">          <span class="keyword">byte</span> GUID[<span class="number">8</span>];</span><br><span class="line">          <span class="keyword">int</span> type;</span><br><span class="line">          <span class="keyword">string</span> filePath;</span><br><span class="line">          <span class="keyword">string</span> assetPath;</span><br><span class="line">     &#125;;</span><br><span class="line">     <span class="keyword">int</span> Count;</span><br><span class="line">     <span class="keyword">byte</span> Unknown;</span><br><span class="line">    vector Refs;</span><br></pre></td></tr></table></figure></p>
+<h2 id="压缩方案"><a href="#压缩方案" class="headerlink" title="压缩方案"></a>压缩方案</h2><p>AssetBundle 压缩后的大致文件组成：<br><img src="/2020/06/24/AssetBundle研究报告/3.png" class="AssetBundle Compreesion File"></p>
+<p>Unity 在打包 AssetBundle 时会默认以 LZMA 格式进行压缩，可以通过 <strong>BuildAssetBundleOptions</strong> 调整压缩方案。  </p>
+<ul>
+<li>BuildAssetBundleOptions.None(LZMA):<br>此选项会使用 LZMA 格式压缩成序列化文件流。LZMA 的优点是打包体积小，缺点是使用时需要整体解包，导致加载时间长。</li>
+<li>BuildAssetBundleOptions.UncompressedAssetBundle<br>此选项不会对文件进行压缩，优点是加载不需要解包速度快，缺点是打包体积大。</li>
+<li>BueldAssetBundleOptions.ChunkBasedCompression(LZ4)<br>此选项会以 LZ4 的格式进行压缩，LZ4 是一种基于 chunk 的算法，该算法运行 Bundle 进行分块（chunk）式加载，只解压缩单个需要使用的资产。</li>
+</ul>
+<h1 id="AssetBundle-加载时的存储方案"><a href="#AssetBundle-加载时的存储方案" class="headerlink" title="AssetBundle 加载时的存储方案"></a>AssetBundle 加载时的存储方案</h1><p>Bundle 加载后，分为两部分存储，</p>
+<ul>
+<li>一部分是头文件，以 SerializedFile 格式存储在内存中，</li>
+<li>另一部分则是 AssetBundle Content ，依据不同的加载的方式存储在内存或者磁盘中。</li>
+</ul>
+<h2 id="不同压缩方案的加载-API-对比："><a href="#不同压缩方案的加载-API-对比：" class="headerlink" title="不同压缩方案的加载 API 对比："></a>不同压缩方案的加载 API 对比：</h2><table>
+<thead>
+<tr>
+<th>API</th>
+<th>UnCompressed</th>
+<th>LZ4(ChunkBasedCompression)</th>
+<th>LZMA(Stream Compression)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>www</td>
+<td>内存：未压缩，内存读取</td>
+<td>内存：LZ4HC压缩，内存读取</td>
+<td>内存：LZ4压缩，内存读取</td>
+</tr>
+<tr>
+<td>LoadFromCacheOrDownload</td>
+<td>内存：无，硬盘直读</td>
+<td>内存：无，硬盘直读</td>
+<td>内存：无，硬盘直读</td>
+</tr>
+<tr>
+<td>LoadFromMemory(Async)</td>
+<td>内存：未压缩</td>
+<td>内存：LZ4HC压缩</td>
+<td>内存：LZ4压缩，LZMA解压 -&gt; LZ4压缩</td>
+</tr>
+<tr>
+<td>LoadFromFile(Async)</td>
+<td>内存：无，硬盘直读</td>
+<td>内存：无，硬盘直读</td>
+<td>内存：LZ4压缩 ，硬盘读取 -&gt; LZMA解压 -&gt; LZ4压缩 -&gt; 内存读取</td>
+</tr>
+<tr>
+<td>WebRequest</td>
+<td>内存：无，Cache直读</td>
+<td>内存：无，Cache直读</td>
+<td>内存：无，LZMA解压 -&gt; LZ4压缩</td>
+</tr>
+</tbody>
+</table>
+<h1 id="AsetBundle-加载后的内存分析"><a href="#AsetBundle-加载后的内存分析" class="headerlink" title="AsetBundle 加载后的内存分析"></a>AsetBundle 加载后的内存分析</h1><img src="/2020/06/24/AssetBundle研究报告/4.png" class="AssetBundle 内存分析">
+<h2 id="SerializedFile-分析"><a href="#SerializedFile-分析" class="headerlink" title="SerializedFile 分析"></a>SerializedFile 分析</h2><blockquote>
+<p>分别制作干净的 AssetBundle 包，加载进内存，通过 Profile 抓取内存分析大小并对比。Unity 版本 2017.4.x</p>
+</blockquote>
+<h3 id="Texture"><a href="#Texture" class="headerlink" title="Texture"></a>Texture</h3><p>纹理大小不一样  </p>
+<table>
+<thead>
+<tr>
+<th>AssetBundle</th>
+<th>TextureSize</th>
+<th>AssetBundleSize</th>
+<th>SerializedFileSize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>texture1</td>
+<td>512 x 512</td>
+<td>176 KB</td>
+<td>18.0 KB</td>
+</tr>
+<tr>
+<td>texture2</td>
+<td>1024 x 1024</td>
+<td>688 KB</td>
+<td>18.0 KB</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Shader"><a href="#Shader" class="headerlink" title="Shader"></a>Shader</h3><p>以拷贝出来的的 Standard Shader 为标准，分别增加其 Properties 和 SubShader  </p>
+<table>
+<thead>
+<tr>
+<th>AssetBundle</th>
+<th>ShaderInfo</th>
+<th>AssetBundleSize</th>
+<th>SerializedFileSize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shader1</td>
+<td>Copy From Standard</td>
+<td>110 KB</td>
+<td><strong>121.6 KB</strong></td>
+</tr>
+<tr>
+<td>shader2</td>
+<td>+ 40 Properties</td>
+<td>113 KB</td>
+<td><strong>121.6 KB</strong></td>
+</tr>
+<tr>
+<td>shader3</td>
+<td>+ 20 SubShader</td>
+<td>519 KB</td>
+<td><strong>121.6 KB</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Mesh"><a href="#Mesh" class="headerlink" title="Mesh"></a>Mesh</h3><p>顶点数量不同  </p>
+<table>
+<thead>
+<tr>
+<th>AssetBundle</th>
+<th>MeshInfo</th>
+<th>AssetBundleSize</th>
+<th>SerializedFileSize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mesh1</td>
+<td>0 verts 0 tris</td>
+<td>9 KB</td>
+<td><strong>23.2 KB</strong></td>
+</tr>
+<tr>
+<td>mesh2</td>
+<td>30000 verts 10000 tris</td>
+<td>419 KB</td>
+<td><strong>23.2 KB</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Asset 打包进行 AssetBundle 的序列化文件，并不受资源内容尺寸影响，只与资源类型相关</p>
+<h3 id="复数资源的打包"><a href="#复数资源的打包" class="headerlink" title="复数资源的打包"></a>复数资源的打包</h3><table>
+<thead>
+<tr>
+<th>AssetBundle</th>
+<th>Group</th>
+<th>AssetBundleSize</th>
+<th>SerializedFileSize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>group1</td>
+<td>Texture1 + Mesh1 + Shader1</td>
+<td>289 KB</td>
+<td><strong>129.4 KB</strong></td>
+</tr>
+<tr>
+<td>group2</td>
+<td>Texture1 + Texture2 + Mesh1 + Mesh2 + Shader1 + Shader2</td>
+<td>1461 KB</td>
+<td><strong>129.5 KB</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>同类资源打包, 并不等于单个资源序列化后的文件之和，而是小于，推测有过一些压缩的方案。</li>
+<li>重复资源打包，增长量为 0.1KB , 推断同类型资源不会重复创建序列化文件， 增长的 0.1KB 应该是引用相关的数据</li>
+</ul>
+<hr>
+<h3 id="Prefab-序列化尺寸"><a href="#Prefab-序列化尺寸" class="headerlink" title="Prefab 序列化尺寸"></a>Prefab 序列化尺寸</h3><p>空 Prefab<br>复数空 Prefab 尺寸  </p>
+<table>
+<thead>
+<tr>
+<th>AssetBundle</th>
+<th>Info</th>
+<th>AssetBundleSize</th>
+<th>SerializedFileSize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prefab1</td>
+<td>空的 Gameobject</td>
+<td>5 KB</td>
+<td><strong>18.3 KB</strong></td>
+</tr>
+<tr>
+<td>prefabgroup</td>
+<td>100 个 空 Gameobject</td>
+<td>30 KB</td>
+<td><strong>23 KB</strong></td>
+</tr>
+</tbody>
+</table>
+<p>100 个 Prefab 打包相比单个 Prefab ，增长量为 1.7 KB , 复数的 Prefab 合并打包不会创建重复的序列化文件</p>
+<h3 id="Prefab-复杂化后的尺寸"><a href="#Prefab-复杂化后的尺寸" class="headerlink" title="Prefab 复杂化后的尺寸"></a>Prefab 复杂化后的尺寸</h3><table>
+<thead>
+<tr>
+<th>AssetBundle</th>
+<th>Info</th>
+<th>AssetBundleSize</th>
+<th>SerializedFileSize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prefab1</td>
+<td>空的 Gameobject</td>
+<td>5 KB</td>
+<td><strong>18.3 KB</strong></td>
+</tr>
+<tr>
+<td>prefab2</td>
+<td>深度创建 1000 个 Child</td>
+<td>192 KB</td>
+<td><strong>65.2 KB</strong></td>
+</tr>
+<tr>
+<td>prefab3</td>
+<td>广度创建 1000 个 Child</td>
+<td>197 KB</td>
+<td><strong>67.0 KB</strong></td>
+</tr>
+</tbody>
+</table>
+<p>1000 个 Gameobject 嵌套创建后相比空的 GameObject ，增长量为 46.9 KB ，广度嵌套相比增长再多 1.8 KB 。 对比上一个空 prefab 的测试， 100 个 prefab 增长约 5KB , 这里 1000 个 child 对应增长  46.9 KB 。Prefab 的复杂度增加也会增大序列化文件的尺寸</p>
+<h2 id="MonoScript-AssetBundle-序列化尺寸"><a href="#MonoScript-AssetBundle-序列化尺寸" class="headerlink" title="MonoScript AssetBundle 序列化尺寸"></a>MonoScript AssetBundle 序列化尺寸</h2><table>
+<thead>
+<tr>
+<th>AssetBundle</th>
+<th>Info</th>
+<th>AssetBundleSize</th>
+<th>SerializedFileSize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mono1</td>
+<td>干净的 MonoScript</td>
+<td>6 KB</td>
+<td><strong>20.1 KB</strong></td>
+</tr>
+<tr>
+<td>mono2</td>
+<td>+ 10 Vector3[] 序列化字段</td>
+<td>7 KB</td>
+<td><strong>20.8 KB</strong></td>
+</tr>
+<tr>
+<td>mono3</td>
+<td>每个序列化字段填入100个 vector3</td>
+<td>19 KB</td>
+<td><strong>20.8 KB</strong></td>
+</tr>
+</tbody>
+</table>
+<p>脚本的序列化只与序列化字段的的数量有关，字段内容并不被提前序列化后加载</p>
+<h2 id="AssetBundle-中依赖关系的序列化分析"><a href="#AssetBundle-中依赖关系的序列化分析" class="headerlink" title="AssetBundle 中依赖关系的序列化分析"></a>AssetBundle 中依赖关系的序列化分析</h2><table>
+<thead>
+<tr>
+<th>AssetBundle</th>
+<th>Info</th>
+<th>AssetBundleSize</th>
+<th>SerializedFileSize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reference1</td>
+<td>GameObject + Mono</td>
+<td>6 KB</td>
+<td><strong>20.2 KB</strong></td>
+</tr>
+<tr>
+<td>reference2</td>
+<td>GameObject + Mono + Texture</td>
+<td>178 KB</td>
+<td><strong>21.6 KB</strong></td>
+</tr>
+<tr>
+<td>reference3</td>
+<td>GameObject + Mono -&gt; Texture</td>
+<td>178 KB</td>
+<td><strong>21.6 KB</strong></td>
+</tr>
+<tr>
+<td>reference4</td>
+<td>GameObject + Mono -&gt; Texture(texture1)</td>
+<td>6 KB</td>
+<td><strong>92.3 KB</strong></td>
+</tr>
+<tr>
+<td>reference4</td>
+<td>GameObject + Mono -&gt; Texture1(texture1) Texture2(texture2)</td>
+<td>6 KB</td>
+<td><strong>92.4 KB</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>包内依赖与包内引用没有大小的变化，推断引用关系不会被序列化或者是量级太小无法感知</li>
+<li>包之间的引用产生了一个 70.7 KB 的变化，这个变化不会随着包的引用数量而增加</li>
+</ul>
+<p>网络上查了以下资料， Unity 在 Unit2018 大会上对 SerializedFile 文件大小有过讲解，细节如下：</p>
+<blockquote>
+<p>其实SerializedFile记录着重建资源所需的信息。而其大体的组成是有2 x 7KB的文件读取Buffer，较大的TypeTree占用，如果存有外部引用，会有一个最少72KB的External References的Buffer，剩下的就是我们资源的数据了，我们会在后续版本把External References的内存占用降到4KB+</p>
+<p>Profiler 内 SerializedFile 大体组成 (Unity 2017.4.1f Mobile &amp; Editor)</p>
+<ul>
+<li>14Kb File Read Cache</li>
+<li>(较大) TypeTree</li>
+<li>72KB External References</li>
+<li>(较小，与 AB 内 Object 数量相关) Object Map &amp; Infos  </li>
+</ul>
+<p><a href="https://connect.unity.com/p/unite-2018-jie-xi-assetbundle" target="_blank" rel="noopener">原文地址</a>  </p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>除了为了极短的减少包体尺寸 LZ4 的压缩格式在内存的额外占用，包体的大小，加载的时间上都有一定的优化能力，是一个不错的选择方案。</li>
+<li>从 SerializedFile 文件大小的分析可知，在分包策略上需要更多的考虑合包的可能性，否则容易造成复数的 External Refernce Buff 区域创建，造成内存的浪费。</li>
+</ul>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://blog.codingnow.com/2014/08/unity3d_asset_bundle.html" target="_blank" rel="noopener">Unity3D asset bundle 格式简析</a><br><a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">ClassIDReference</a><br><a href="https://connect.unity.com/p/unite-2018-jie-xi-assetbundle" target="_blank" rel="noopener">Unite 2018 | 解析AssetBundle</a><br><a href="https://www.cnblogs.com/pinkfloyd/p/6489979.html" target="_blank" rel="noopener">AssetBundle文件结构浅析</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AssetBundle/" rel="tag"># AssetBundle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/23/AssetBundle 序列化尺寸/" rel="next" title="AssetBundle序列化尺寸">
+                <i class="fa fa-chevron-left"></i> AssetBundle序列化尺寸
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/06/20/自定义渲染管线-SRP/" rel="prev" title="自定义渲染管线(SRP)">
+                自定义渲染管线(SRP) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_my.jpg" alt="Dupouy">
+            
+              <p class="site-author-name" itemprop="name">Dupouy</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/dupouyer" title="GitHub &rarr; https://github.com/dupouyer" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AssetBundle-文件结构"><span class="nav-number">1.</span> <span class="nav-text">AssetBundle 文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本介绍"><span class="nav-number">1.1.</span> <span class="nav-text">基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-AssetBundle-File"><span class="nav-number">1.1.1.</span> <span class="nav-text">The AssetBundle File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Manifest-File"><span class="nav-number">1.1.2.</span> <span class="nav-text">The Manifest File</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件结构分析"><span class="nav-number">1.2.</span> <span class="nav-text">文件结构分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩方案"><span class="nav-number">1.3.</span> <span class="nav-text">压缩方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AssetBundle-加载时的存储方案"><span class="nav-number">2.</span> <span class="nav-text">AssetBundle 加载时的存储方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#不同压缩方案的加载-API-对比："><span class="nav-number">2.1.</span> <span class="nav-text">不同压缩方案的加载 API 对比：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AsetBundle-加载后的内存分析"><span class="nav-number">3.</span> <span class="nav-text">AsetBundle 加载后的内存分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SerializedFile-分析"><span class="nav-number">3.1.</span> <span class="nav-text">SerializedFile 分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Texture"><span class="nav-number">3.1.1.</span> <span class="nav-text">Texture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shader"><span class="nav-number">3.1.2.</span> <span class="nav-text">Shader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mesh"><span class="nav-number">3.1.3.</span> <span class="nav-text">Mesh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复数资源的打包"><span class="nav-number">3.1.4.</span> <span class="nav-text">复数资源的打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prefab-序列化尺寸"><span class="nav-number">3.1.5.</span> <span class="nav-text">Prefab 序列化尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prefab-复杂化后的尺寸"><span class="nav-number">3.1.6.</span> <span class="nav-text">Prefab 复杂化后的尺寸</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MonoScript-AssetBundle-序列化尺寸"><span class="nav-number">3.2.</span> <span class="nav-text">MonoScript AssetBundle 序列化尺寸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AssetBundle-中依赖关系的序列化分析"><span class="nav-number">3.3.</span> <span class="nav-text">AssetBundle 中依赖关系的序列化分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">4.0.1.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dupouy</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.0.1</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '86d2fb9251fcfd3a94af',
+    clientSecret: 'e4cbb3a984244a10037fb3df035dfd969a5f4b07',
+    repo: 'dupouyer.github.io',
+    owner: 'dupouyer',
+    admin: ['dupouyer'],
+    id: md5(location.pathname),
+    
+      language: 'en, zh-CN,zh-TW',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
