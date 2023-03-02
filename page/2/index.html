@@ -243,7 +243,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">13</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">14</span></a>
 
   </li>
         
@@ -262,7 +262,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">2</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">3</span></a>
 
   </li>
         
@@ -281,7 +281,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">16</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">17</span></a>
 
   </li>
         
@@ -365,6 +365,273 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dupouyer.github.io/2020/06/02/Stripping-with-IL2CPP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dupouy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_my.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/06/02/Stripping-with-IL2CPP/" class="post-title-link" itemprop="url">Stripping with IL2CPP</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-06-02 11:26:52" itemprop="dateCreated datePublished" datetime="2020-06-02T11:26:52+00:00">2020-06-02</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p>项目中为了减少打包后的包体大小，针对 IL2CPP 的打包方案做包体缩小的优化</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>IL2CPP 虽然在性能上比 mono 有优势，但是当代码量增多时，包体会增大</p>
+<h2 id="研究"><a href="#研究" class="headerlink" title="研究"></a>研究</h2><p>2015 年的一篇帖子有提到 IL2CPP 在打包时会将未使用的属性打包进 IL 中，作者测评下来发现修改裁剪工具，剔除不需要的属性能减少 6% 的 IL2Cpp 大小。<br><a href="https://forum.unity.com/threads/suggestion-for-reducing-the-size-of-il2cpp-generated-executable.338986/" target="_blank" rel="noopener">原帖地址</a><br>在 unity2017 版本中，并没有作者所提到的 UnusedByteCodeStripper2.exe 工具，推测 unity 可能在后续版本更新中做了优化。</p>
+<h3 id="测试-Attribute-的优化"><a href="#测试-Attribute-的优化" class="headerlink" title="测试 Attribute 的优化"></a>测试 Attribute 的优化</h3><p>新建空的项目工程，创建 test.cs , 对其中的 test 字段使用属性元数据。 选择 IL2Cpp 打包方案打包 apk 包，使用 <a href="https://github.com/Perfare/Il2CppDumper" target="_blank" rel="noopener">IL2Cppdumper</a> ，反编译查看包体中的 libil2cpp.so ， 对比查看使用了属性以及未使用属性的打包结果。</p>
+<h1 id="目标-1"><a href="#目标-1" class="headerlink" title="目标"></a>目标</h1><p>项目中为了减少打包后的包体大小，针对 IL2CPP 的打包方案做包体缩小的优化</p>
+<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><p>IL2CPP 虽然在性能上比 mono 有优势，但是当代码量增多时，包体会增大</p>
+<h2 id="研究-1"><a href="#研究-1" class="headerlink" title="研究"></a>研究</h2><p>2015 年的一篇帖子有提到 IL2CPP 在打包时会将未使用的属性打包进 IL 中，作者测评下来发现修改裁剪工具，剔除不需要的属性能减少 6% 的 IL2Cpp 大小。<br><a href="https://forum.unity.com/threads/suggestion-for-reducing-the-size-of-il2cpp-generated-executable.338986/" target="_blank" rel="noopener">原帖地址</a><br>在 unity2017 版本中，并没有作者所提到的 UnusedByteCodeStripper2.exe 工具，推测 unity 可能在后续版本更新中做了优化。</p>
+<h3 id="测试-Attribute-的优化-1"><a href="#测试-Attribute-的优化-1" class="headerlink" title="测试 Attribute 的优化"></a>测试 Attribute 的优化</h3><p>新建空的项目工程，创建 test.cs , 对其中的 test 字段使用属性元数据。 选择 IL2Cpp 打包方案打包 apk 包，使用 <a href="https://github.com/Perfare/Il2CppDumper" target="_blank" rel="noopener">IL2Cppdumper</a> ，反编译查看包体中的 libil2cpp.so ， 对比查看使用了属性以及未使用属性的打包结果。</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/1.png" alt="使用属性"></p>
+<p>未使用属性的 attribute 在反编译结果中未找到对应的声明<br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/2.png" alt="反编译结果"></p>
+<h3 id="Managed-bytecode-stripping-with-IL2CPP"><a href="#Managed-bytecode-stripping-with-IL2CPP" class="headerlink" title="Managed bytecode stripping with IL2CPP"></a>Managed bytecode stripping with IL2CPP</h3><p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/3.png" alt="Strip Engine Code"><br>查找文档发现 unity2017 已经新增了对 IL 代码的裁剪选项，此选项开启后会使用 UnityLinker(is a version of the <a href="https://github.com/mono/linker" target="_blank" rel="noopener">Mono IL Linker</a>) 对引擎中未引用的代码进行剔除。<br>剔除工作是基于代码的静态分析，需要注意以下情况，并处理。</p>
+<ul>
+<li>如果代码中使用了反射来引用，可能会出现运行时引用类型被剔除的报错。</li>
+<li>项目打包中会有 prefab 资源的提前构建 ab 包，此构建过程在 UnityLinker 调用之前执行，一些类型的引用只存在与 Prefab 中，也会出现类型丢失问题。需要手动排查并引用进 mono 防止类型被剔除。</li>
+</ul>
+<h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><p>对裁剪后的包进行冒烟测试，查找并修复类型丢失的问题。</p>
+<blockquote>
+<p>运行时，unity 会抛出类型丢失的错误，并附带一个应用 ID， 通过 <a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">ClassIDRefrence</a>  查找，获知对应的类型。</p>
+</blockquote>
+<h3 id="反射引用"><a href="#反射引用" class="headerlink" title="反射引用"></a>反射引用</h3><p>测试下来并未出现有相关类型报错的问题，说明代码中没有通过这种方法对类型进行引用。</p>
+<h3 id="资源-ab-包"><a href="#资源-ab-包" class="headerlink" title="资源 ab 包"></a>资源 ab 包</h3><p>出现一些 Prefab 引用类型丢失的情况，新增 link.xml 放置在 Assets 下，指导 UnityLinker 的剔除保留。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">linker</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"System"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"System.ComponentModel.TypeConverter"</span> <span class="attr">preserve</span>=<span class="string">"all"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"mscorlib"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Security.Cryptography"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Flare"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Avatar"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">linker</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>最终包体缩小 34MB</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/4.png" alt="结果1"><br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/5.png" alt="结果2"></p>
+<p>未使用属性的 attribute 在反编译结果中未找到对应的声明</p>
+<h1 id="目标-2"><a href="#目标-2" class="headerlink" title="目标"></a>目标</h1><p>项目中为了减少打包后的包体大小，针对 IL2CPP 的打包方案做包体缩小的优化</p>
+<h2 id="问题-2"><a href="#问题-2" class="headerlink" title="问题"></a>问题</h2><p>IL2CPP 虽然在性能上比 mono 有优势，但是当代码量增多时，包体会增大</p>
+<h2 id="研究-2"><a href="#研究-2" class="headerlink" title="研究"></a>研究</h2><p>2015 年的一篇帖子有提到 IL2CPP 在打包时会将未使用的属性打包进 IL 中，作者测评下来发现修改裁剪工具，剔除不需要的属性能减少 6% 的 IL2Cpp 大小。<br><a href="https://forum.unity.com/threads/suggestion-for-reducing-the-size-of-il2cpp-generated-executable.338986/" target="_blank" rel="noopener">原帖地址</a><br>在 unity2017 版本中，并没有作者所提到的 UnusedByteCodeStripper2.exe 工具，推测 unity 可能在后续版本更新中做了优化。</p>
+<h3 id="测试-Attribute-的优化-2"><a href="#测试-Attribute-的优化-2" class="headerlink" title="测试 Attribute 的优化"></a>测试 Attribute 的优化</h3><p>新建空的项目工程，创建 test.cs , 对其中的 test 字段使用属性元数据。 选择 IL2Cpp 打包方案打包 apk 包，使用 <a href="https://github.com/Perfare/Il2CppDumper" target="_blank" rel="noopener">IL2Cppdumper</a> ，反编译查看包体中的 libil2cpp.so ， 对比查看使用了属性以及未使用属性的打包结果。</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/1.png" alt="使用属性"></p>
+<p>未使用属性的 attribute 在反编译结果中未找到对应的声明<br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/2.png" alt="反编译结果"></p>
+<h3 id="Managed-bytecode-stripping-with-IL2CPP-1"><a href="#Managed-bytecode-stripping-with-IL2CPP-1" class="headerlink" title="Managed bytecode stripping with IL2CPP"></a>Managed bytecode stripping with IL2CPP</h3><p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/3.png" alt="Strip Engine Code"><br>查找文档发现 unity2017 已经新增了对 IL 代码的裁剪选项，此选项开启后会使用 UnityLinker(is a version of the <a href="https://github.com/mono/linker" target="_blank" rel="noopener">Mono IL Linker</a>) 对引擎中未引用的代码进行剔除。<br>剔除工作是基于代码的静态分析，需要注意以下情况，并处理。</p>
+<ul>
+<li>如果代码中使用了反射来引用，可能会出现运行时引用类型被剔除的报错。</li>
+<li>项目打包中会有 prefab 资源的提前构建 ab 包，此构建过程在 UnityLinker 调用之前执行，一些类型的引用只存在与 Prefab 中，也会出现类型丢失问题。需要手动排查并引用进 mono 防止类型被剔除。</li>
+</ul>
+<h2 id="执行-1"><a href="#执行-1" class="headerlink" title="执行"></a>执行</h2><p>对裁剪后的包进行冒烟测试，查找并修复类型丢失的问题。</p>
+<blockquote>
+<p>运行时，unity 会抛出类型丢失的错误，并附带一个应用 ID， 通过 <a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">ClassIDRefrence</a>  查找，获知对应的类型。</p>
+</blockquote>
+<h3 id="反射引用-1"><a href="#反射引用-1" class="headerlink" title="反射引用"></a>反射引用</h3><p>测试下来并未出现有相关类型报错的问题，说明代码中没有通过这种方法对类型进行引用。</p>
+<h3 id="资源-ab-包-1"><a href="#资源-ab-包-1" class="headerlink" title="资源 ab 包"></a>资源 ab 包</h3><p>出现一些 Prefab 引用类型丢失的情况，新增 link.xml 放置在 Assets 下，指导 UnityLinker 的剔除保留。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">linker</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"System"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"System.ComponentModel.TypeConverter"</span> <span class="attr">preserve</span>=<span class="string">"all"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"mscorlib"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Security.Cryptography"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Flare"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Avatar"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">linker</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结果-1"><a href="#结果-1" class="headerlink" title="结果"></a>结果</h2><p>最终包体缩小 34MB</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/4.png" alt="结果1"><br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/5.png" alt="结果2"></p>
+<h3 id="Managed-bytecode-stripping-with-IL2CPP-2"><a href="#Managed-bytecode-stripping-with-IL2CPP-2" class="headerlink" title="Managed bytecode stripping with IL2CPP"></a>Managed bytecode stripping with IL2CPP</h3><h1 id="目标-3"><a href="#目标-3" class="headerlink" title="目标"></a>目标</h1><p>项目中为了减少打包后的包体大小，针对 IL2CPP 的打包方案做包体缩小的优化</p>
+<h2 id="问题-3"><a href="#问题-3" class="headerlink" title="问题"></a>问题</h2><p>IL2CPP 虽然在性能上比 mono 有优势，但是当代码量增多时，包体会增大</p>
+<h2 id="研究-3"><a href="#研究-3" class="headerlink" title="研究"></a>研究</h2><p>2015 年的一篇帖子有提到 IL2CPP 在打包时会将未使用的属性打包进 IL 中，作者测评下来发现修改裁剪工具，剔除不需要的属性能减少 6% 的 IL2Cpp 大小。<br><a href="https://forum.unity.com/threads/suggestion-for-reducing-the-size-of-il2cpp-generated-executable.338986/" target="_blank" rel="noopener">原帖地址</a><br>在 unity2017 版本中，并没有作者所提到的 UnusedByteCodeStripper2.exe 工具，推测 unity 可能在后续版本更新中做了优化。</p>
+<h3 id="测试-Attribute-的优化-3"><a href="#测试-Attribute-的优化-3" class="headerlink" title="测试 Attribute 的优化"></a>测试 Attribute 的优化</h3><p>新建空的项目工程，创建 test.cs , 对其中的 test 字段使用属性元数据。 选择 IL2Cpp 打包方案打包 apk 包，使用 <a href="https://github.com/Perfare/Il2CppDumper" target="_blank" rel="noopener">IL2Cppdumper</a> ，反编译查看包体中的 libil2cpp.so ， 对比查看使用了属性以及未使用属性的打包结果。</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/1.png" alt="使用属性"></p>
+<p>未使用属性的 attribute 在反编译结果中未找到对应的声明<br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/2.png" alt="反编译结果"></p>
+<h3 id="Managed-bytecode-stripping-with-IL2CPP-3"><a href="#Managed-bytecode-stripping-with-IL2CPP-3" class="headerlink" title="Managed bytecode stripping with IL2CPP"></a>Managed bytecode stripping with IL2CPP</h3><p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/3.png" alt="Strip Engine Code"><br>查找文档发现 unity2017 已经新增了对 IL 代码的裁剪选项，此选项开启后会使用 UnityLinker(is a version of the <a href="https://github.com/mono/linker" target="_blank" rel="noopener">Mono IL Linker</a>) 对引擎中未引用的代码进行剔除。<br>剔除工作是基于代码的静态分析，需要注意以下情况，并处理。</p>
+<ul>
+<li>如果代码中使用了反射来引用，可能会出现运行时引用类型被剔除的报错。</li>
+<li>项目打包中会有 prefab 资源的提前构建 ab 包，此构建过程在 UnityLinker 调用之前执行，一些类型的引用只存在与 Prefab 中，也会出现类型丢失问题。需要手动排查并引用进 mono 防止类型被剔除。</li>
+</ul>
+<h2 id="执行-2"><a href="#执行-2" class="headerlink" title="执行"></a>执行</h2><p>对裁剪后的包进行冒烟测试，查找并修复类型丢失的问题。</p>
+<blockquote>
+<p>运行时，unity 会抛出类型丢失的错误，并附带一个应用 ID， 通过 <a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">ClassIDRefrence</a>  查找，获知对应的类型。</p>
+</blockquote>
+<h3 id="反射引用-2"><a href="#反射引用-2" class="headerlink" title="反射引用"></a>反射引用</h3><p>测试下来并未出现有相关类型报错的问题，说明代码中没有通过这种方法对类型进行引用。</p>
+<h3 id="资源-ab-包-2"><a href="#资源-ab-包-2" class="headerlink" title="资源 ab 包"></a>资源 ab 包</h3><p>出现一些 Prefab 引用类型丢失的情况，新增 link.xml 放置在 Assets 下，指导 UnityLinker 的剔除保留。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">linker</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"System"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"System.ComponentModel.TypeConverter"</span> <span class="attr">preserve</span>=<span class="string">"all"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"mscorlib"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Security.Cryptography"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Flare"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Avatar"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">linker</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结果-2"><a href="#结果-2" class="headerlink" title="结果"></a>结果</h2><p>最终包体缩小 34MB</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/4.png" alt="结果1"><br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/5.png" alt="结果2"><br>查找文档发现 unity2017 已经新增了对 IL 代码的裁剪选项，此选项开启后会使用 UnityLinker(is a version of the <a href="https://github.com/mono/linker" target="_blank" rel="noopener">Mono IL Linker</a>) 对引擎中未引用的代码进行剔除。<br>剔除工作是基于代码的静态分析，需要注意以下情况，并处理。</p>
+<ul>
+<li>如果代码中使用了反射来引用，可能会出现运行时引用类型被剔除的报错。</li>
+<li>项目打包中会有 prefab 资源的提前构建 ab 包，此构建过程在 UnityLinker 调用之前执行，一些类型的引用只存在与 Prefab 中，也会出现类型丢失问题。需要手动排查并引用进 mono 防止类型被剔除。</li>
+</ul>
+<h2 id="执行-3"><a href="#执行-3" class="headerlink" title="执行"></a>执行</h2><p>对裁剪后的包进行冒烟测试，查找并修复类型丢失的问题。</p>
+<blockquote>
+<p>运行时，unity 会抛出类型丢失的错误，并附带一个应用 ID， 通过 <a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">ClassIDRefrence</a>  查找，获知对应的类型。</p>
+</blockquote>
+<h3 id="反射引用-3"><a href="#反射引用-3" class="headerlink" title="反射引用"></a>反射引用</h3><p>测试下来并未出现有相关类型报错的问题，说明代码中没有通过这种方法对类型进行引用。</p>
+<h3 id="资源-ab-包-3"><a href="#资源-ab-包-3" class="headerlink" title="资源 ab 包"></a>资源 ab 包</h3><p>出现一些 Prefab 引用类型丢失的情况，新增 link.xml 放置在 Assets 下，指导 UnityLinker 的剔除保留。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">linker</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"System"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"System.ComponentModel.TypeConverter"</span> <span class="attr">preserve</span>=<span class="string">"all"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"mscorlib"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Security.Cryptography"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Flare"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Avatar"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">linker</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结果-3"><a href="#结果-3" class="headerlink" title="结果"></a>结果</h2><p>最终包体缩小 34MB</p>
+<h1 id="目标-4"><a href="#目标-4" class="headerlink" title="目标"></a>目标</h1><p>项目中为了减少打包后的包体大小，针对 IL2CPP 的打包方案做包体缩小的优化</p>
+<h2 id="问题-4"><a href="#问题-4" class="headerlink" title="问题"></a>问题</h2><p>IL2CPP 虽然在性能上比 mono 有优势，但是当代码量增多时，包体会增大</p>
+<h2 id="研究-4"><a href="#研究-4" class="headerlink" title="研究"></a>研究</h2><p>2015 年的一篇帖子有提到 IL2CPP 在打包时会将未使用的属性打包进 IL 中，作者测评下来发现修改裁剪工具，剔除不需要的属性能减少 6% 的 IL2Cpp 大小。<br><a href="https://forum.unity.com/threads/suggestion-for-reducing-the-size-of-il2cpp-generated-executable.338986/" target="_blank" rel="noopener">原帖地址</a><br>在 unity2017 版本中，并没有作者所提到的 UnusedByteCodeStripper2.exe 工具，推测 unity 可能在后续版本更新中做了优化。</p>
+<h3 id="测试-Attribute-的优化-4"><a href="#测试-Attribute-的优化-4" class="headerlink" title="测试 Attribute 的优化"></a>测试 Attribute 的优化</h3><p>新建空的项目工程，创建 test.cs , 对其中的 test 字段使用属性元数据。 选择 IL2Cpp 打包方案打包 apk 包，使用 <a href="https://github.com/Perfare/Il2CppDumper" target="_blank" rel="noopener">IL2Cppdumper</a> ，反编译查看包体中的 libil2cpp.so ， 对比查看使用了属性以及未使用属性的打包结果。</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/1.png" alt="使用属性"></p>
+<p>未使用属性的 attribute 在反编译结果中未找到对应的声明<br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/2.png" alt="反编译结果"></p>
+<h3 id="Managed-bytecode-stripping-with-IL2CPP-4"><a href="#Managed-bytecode-stripping-with-IL2CPP-4" class="headerlink" title="Managed bytecode stripping with IL2CPP"></a>Managed bytecode stripping with IL2CPP</h3><p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/3.png" alt="Strip Engine Code"><br>查找文档发现 unity2017 已经新增了对 IL 代码的裁剪选项，此选项开启后会使用 UnityLinker(is a version of the <a href="https://github.com/mono/linker" target="_blank" rel="noopener">Mono IL Linker</a>) 对引擎中未引用的代码进行剔除。<br>剔除工作是基于代码的静态分析，需要注意以下情况，并处理。</p>
+<ul>
+<li>如果代码中使用了反射来引用，可能会出现运行时引用类型被剔除的报错。</li>
+<li>项目打包中会有 prefab 资源的提前构建 ab 包，此构建过程在 UnityLinker 调用之前执行，一些类型的引用只存在与 Prefab 中，也会出现类型丢失问题。需要手动排查并引用进 mono 防止类型被剔除。</li>
+</ul>
+<h2 id="执行-4"><a href="#执行-4" class="headerlink" title="执行"></a>执行</h2><p>对裁剪后的包进行冒烟测试，查找并修复类型丢失的问题。</p>
+<blockquote>
+<p>运行时，unity 会抛出类型丢失的错误，并附带一个应用 ID， 通过 <a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">ClassIDRefrence</a>  查找，获知对应的类型。</p>
+</blockquote>
+<h3 id="反射引用-4"><a href="#反射引用-4" class="headerlink" title="反射引用"></a>反射引用</h3><p>测试下来并未出现有相关类型报错的问题，说明代码中没有通过这种方法对类型进行引用。</p>
+<h3 id="资源-ab-包-4"><a href="#资源-ab-包-4" class="headerlink" title="资源 ab 包"></a>资源 ab 包</h3><p>出现一些 Prefab 引用类型丢失的情况，新增 link.xml 放置在 Assets 下，指导 UnityLinker 的剔除保留。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">linker</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"System"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"System.ComponentModel.TypeConverter"</span> <span class="attr">preserve</span>=<span class="string">"all"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"mscorlib"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Security.Cryptography"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Flare"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Avatar"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">linker</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结果-4"><a href="#结果-4" class="headerlink" title="结果"></a>结果</h2><p>最终包体缩小 34MB</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/4.png" alt="结果1"><br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/5.png" alt="结果2"></p>
+<h1 id="目标-5"><a href="#目标-5" class="headerlink" title="目标"></a>目标</h1><p>项目中为了减少打包后的包体大小，针对 IL2CPP 的打包方案做包体缩小的优化</p>
+<h2 id="问题-5"><a href="#问题-5" class="headerlink" title="问题"></a>问题</h2><p>IL2CPP 虽然在性能上比 mono 有优势，但是当代码量增多时，包体会增大</p>
+<h2 id="研究-5"><a href="#研究-5" class="headerlink" title="研究"></a>研究</h2><p>2015 年的一篇帖子有提到 IL2CPP 在打包时会将未使用的属性打包进 IL 中，作者测评下来发现修改裁剪工具，剔除不需要的属性能减少 6% 的 IL2Cpp 大小。<br><a href="https://forum.unity.com/threads/suggestion-for-reducing-the-size-of-il2cpp-generated-executable.338986/" target="_blank" rel="noopener">原帖地址</a><br>在 unity2017 版本中，并没有作者所提到的 UnusedByteCodeStripper2.exe 工具，推测 unity 可能在后续版本更新中做了优化。</p>
+<h3 id="测试-Attribute-的优化-5"><a href="#测试-Attribute-的优化-5" class="headerlink" title="测试 Attribute 的优化"></a>测试 Attribute 的优化</h3><p>新建空的项目工程，创建 test.cs , 对其中的 test 字段使用属性元数据。 选择 IL2Cpp 打包方案打包 apk 包，使用 <a href="https://github.com/Perfare/Il2CppDumper" target="_blank" rel="noopener">IL2Cppdumper</a> ，反编译查看包体中的 libil2cpp.so ， 对比查看使用了属性以及未使用属性的打包结果。</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/1.png" alt="使用属性"></p>
+<p>未使用属性的 attribute 在反编译结果中未找到对应的声明<br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/2.png" alt="反编译结果"></p>
+<h3 id="Managed-bytecode-stripping-with-IL2CPP-5"><a href="#Managed-bytecode-stripping-with-IL2CPP-5" class="headerlink" title="Managed bytecode stripping with IL2CPP"></a>Managed bytecode stripping with IL2CPP</h3><p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/3.png" alt="Strip Engine Code"><br>查找文档发现 unity2017 已经新增了对 IL 代码的裁剪选项，此选项开启后会使用 UnityLinker(is a version of the <a href="https://github.com/mono/linker" target="_blank" rel="noopener">Mono IL Linker</a>) 对引擎中未引用的代码进行剔除。<br>剔除工作是基于代码的静态分析，需要注意以下情况，并处理。</p>
+<ul>
+<li>如果代码中使用了反射来引用，可能会出现运行时引用类型被剔除的报错。</li>
+<li>项目打包中会有 prefab 资源的提前构建 ab 包，此构建过程在 UnityLinker 调用之前执行，一些类型的引用只存在与 Prefab 中，也会出现类型丢失问题。需要手动排查并引用进 mono 防止类型被剔除。</li>
+</ul>
+<h2 id="执行-5"><a href="#执行-5" class="headerlink" title="执行"></a>执行</h2><p>对裁剪后的包进行冒烟测试，查找并修复类型丢失的问题。</p>
+<blockquote>
+<p>运行时，unity 会抛出类型丢失的错误，并附带一个应用 ID， 通过 <a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">ClassIDRefrence</a>  查找，获知对应的类型。</p>
+</blockquote>
+<h3 id="反射引用-5"><a href="#反射引用-5" class="headerlink" title="反射引用"></a>反射引用</h3><p>测试下来并未出现有相关类型报错的问题，说明代码中没有通过这种方法对类型进行引用。</p>
+<h3 id="资源-ab-包-5"><a href="#资源-ab-包-5" class="headerlink" title="资源 ab 包"></a>资源 ab 包</h3><p>出现一些 Prefab 引用类型丢失的情况，新增 link.xml 放置在 Assets 下，指导 UnityLinker 的剔除保留。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">linker</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"System"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"System.ComponentModel.TypeConverter"</span> <span class="attr">preserve</span>=<span class="string">"all"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"mscorlib"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Security.Cryptography"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Flare"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span> <span class="attr">fullname</span>=<span class="string">"UnityEngine.Avatar"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">linker</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结果-5"><a href="#结果-5" class="headerlink" title="结果"></a>结果</h2><p>最终包体缩小 34MB</p>
+<p><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/4.png" alt="结果1"><br><img src="https://raw.githubusercontent.com/dupouyer/dupouyer.github.io/hexo/source/_posts/img/2020_6_2/5.png" alt="结果2"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2090,7 +2357,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2111,7 +2378,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2154,7 +2423,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
