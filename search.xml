@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>动画</title>
-    <url>/2019/03/20/Anim/</url>
+    <url>/2019/04/20/Anim/</url>
     <content><![CDATA[<h1 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h1><h2 id="补间动画"><a href="#补间动画" class="headerlink" title="补间动画"></a>补间动画</h2><p>补间动画是以关键帧以及补间函数组成，在运行时生成当前的动画信息。<br>优点：能利用少量的资源展现丰富的表现, 不会受游戏帧率波动影响。<br>缺点：运行时计算，计算量与动画数量，动画复杂度正相关。<br>优化方向：anim instance 使用 gpu 计算,目前只有骨骼动画适用</p>
 <h3 id="补间函数"><a href="#补间函数" class="headerlink" title="补间函数"></a>补间函数</h3><p>根据当前时间计算出动画状态。<br>公式：state = f(t)</p>
 <h4 id="常用补间"><a href="#常用补间" class="headerlink" title="常用补间"></a>常用补间</h4><p>模拟自然中的物理规则。<br>匀速运动，加速运动，减速运动<br>p = (P2 - P1) / T * t</p>
