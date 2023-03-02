@@ -15,7 +15,7 @@ jobs:
     - name: Use Node.js 12
       uses: actions/setup-node@v3
       with:
-        node-version: '12'
+        node-version: '16'
 
     - name: Install Pandoc
       run: |
@@ -23,7 +23,7 @@ jobs:
         
     - name: Install and Build 🔧 
       run: |
-        npm install -g hexo-cli
+        npm install -g hexo
         npm install
         hexo clean
         hexo generate
