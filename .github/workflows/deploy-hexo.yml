@@ -31,6 +31,6 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4.4.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ssh-key: ${{ secrets.DEPLOY_KEY }}
+#        ssh-key: ${{ secrets.DEPLOY_KEY }}
         BRANCH: gh-pages
         FOLDER: public
