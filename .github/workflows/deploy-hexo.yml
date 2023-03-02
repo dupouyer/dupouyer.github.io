@@ -9,6 +9,8 @@ jobs:
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v3
+      with:
+        submodules: recursive
       
     - name: Use Node.js 12
       uses: actions/setup-node@v3
