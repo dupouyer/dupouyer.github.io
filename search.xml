@@ -2535,4 +2535,37 @@ Lua 模块仅适用于使用 Lua 的项目
         <tag>SRP</tag>
       </tags>
   </entry>
+  <entry>
+    <title>动画</title>
+    <url>/2023/03/02/PublishNote/Stable-Diffusion%20WebUI%20%E6%96%B0%E6%89%8B%E5%85%A5%E5%9D%91/</url>
+    <content><![CDATA[<p>![[00022-789135319.png]]</p>
+<p>#Stable-Diffusion-WebUI</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><a href="https://zhuanlan.zhihu.com/p/597247221" target="_blank" rel="noopener"># 零基础读懂Stable Diffusion（I）：怎么组成</a><br><a href="https://zhuanlan.zhihu.com/p/597732415" target="_blank" rel="noopener"># 零基础读懂Stable Diffusion（II）：怎么训练</a><br><a href="https://zhuanlan.zhihu.com/p/598070109" target="_blank" rel="noopener"># 零基础读懂Stable Diffusion（III）：怎么控制</a></p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p><a href="https://zhuanlan.zhihu.com/p/584736850" target="_blank" rel="noopener"># 使用stable-diffusion-webui部署NovelAi/Stable Diffusion 保姆级教程、命令解释、原理讲解(colab、windows、Linux )</a></p>
+<p><a href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener">PyTorch 版本</a><br><a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers" target="_blank" rel="noopener">Xformers</a><br><a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui" target="_blank" rel="noopener">Stable-Diffusion-WebUI Github 地址</a></p>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><ul>
+<li>目前为止SD的自训练方法<ul>
+<li>训练出pt<ul>
+<li>hypernetworks训练 <a href="https://zhuanlan.zhihu.com/p/576041621" target="_blank" rel="noopener"># NovelAI hypernetwork 自训练教程</a></li>
+<li>embedding训练(Textual Inversion)</li>
+<li>Aesthetic Gradients embedding</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>训练出ckpt文件<ul>
+<li>dreambooth训练 <a href="https://zhuanlan.zhihu.com/p/584736850" target="_blank" rel="noopener"># StableDiffusion/NAI DreamBooth自训练全教程</a> </li>
+</ul>
+</li>
+</ul>
+<h3 id="模型资源探索"><a href="#模型资源探索" class="headerlink" title="模型资源探索"></a>模型资源探索</h3><p><a href="https://zhuanlan.zhihu.com/p/597504900" target="_blank" rel="noopener"># StableDiffusion模型资源探索食用指南</a></p>
+<h3 id="插件推荐"><a href="#插件推荐" class="headerlink" title="插件推荐"></a>插件推荐</h3><p><a href="https://github.com/lllyasviel/ControlNet" target="_blank" rel="noopener">ControlNet</a><br><a href="https://zhuanlan.zhihu.com/p/579538165" target="_blank" rel="noopener"># 庖丁解牛 Stable-diffusion-webui 插件拓展及依赖汇总</a><br><a href="https://jihulab.com/hunter0725/a1111-sd-webui-tagcomplete" target="_blank" rel="noopener">tagcomplete</a></p>
+]]></content>
+      <categories>
+        <category>Stable-Diffusion-WebUI</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+      </tags>
+  </entry>
 </search>
