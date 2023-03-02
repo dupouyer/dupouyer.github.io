@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dupouyer.github.io/2019/03/20/Anim/</loc>
+    
+    <lastmod>2023-03-20T19:30:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dupouyer.github.io/categories/index.html</loc>
     
-    <lastmod>2023-03-02T05:16:33.948Z</lastmod>
+    <lastmod>2023-03-02T05:23:26.396Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://dupouyer.github.io/tags/index.html</loc>
     
-    <lastmod>2023-03-02T05:16:33.948Z</lastmod>
+    <lastmod>2023-03-02T05:23:26.396Z</lastmod>
     
   </url>
   
@@ -110,13 +117,6 @@
     <loc>https://dupouyer.github.io/2020/04/07/BasicDataStructure/</loc>
     
     <lastmod>2020-04-07T19:30:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://dupouyer.github.io/2019/03/20/Anim/</loc>
-    
-    <lastmod>2019-03-20T19:30:00.000Z</lastmod>
     
   </url>
   
