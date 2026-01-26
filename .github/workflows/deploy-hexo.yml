@@ -24,7 +24,7 @@ jobs:
     - name: Setup Node.js 🔧
       uses: actions/setup-node@v4
       with:
-        node-version: '16'     # 使用 Node.js 16 LTS (更好的包兼容性)
+        node-version: '18'     # 使用 Node.js 18 LTS
         cache: 'npm'           # 缓存 npm 依赖以加快构建速度
 
     # 3. 安装 Pandoc（用于某些 Hexo 插件的文档转换）
