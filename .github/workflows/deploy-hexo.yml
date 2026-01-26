@@ -52,17 +52,39 @@ jobs:
         hexo clean
         hexo generate
 
-    # 7. 部署到 GitHub Pages
-    - name: Deploy to GitHub Pages 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages           # 部署到的目标分支
-        FOLDER: public              # 要部署的文件夹（Hexo 生成的静态文件）
-        CLEAN: true                 # 自动清理目标分支上不存在的文件
-        COMMIT_MESSAGE: 'Deploy Hexo site - ${{ github.event.head_commit.message }}'
-        COMMIT_NAME: 'GitHub Actions'
-        COMMIT_EMAIL: 'actions@github.com'
+    # 7. 部署到 gh-pages 分支
+    - name: Deploy to gh-pages Branch 🚀
+      run: |
+        # 配置 git 用户信息
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+
+        # 初始化 gh-pages 分支（如果不存在）
+        git fetch origin gh-pages:gh-pages 2>/dev/null || git checkout --orphan gh-pages
+
+        # 切换到 gh-pages 分支
+        git checkout gh-pages || git checkout -b gh-pages
+
+        # 清理 gh-pages 分支中的旧文件
+        find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+
+        # 复制 public/ 目录的所有内容到当前目录
+        cp -r public/* .
+        cp -r public/.[!.]* . 2>/dev/null || true
+
+        # 添加所有更改
+        git add -A
+
+        # 检查是否有更改需要提交
+        if git diff --staged --quiet; then
+          echo "⚠️ No changes to deploy"
+        else
+          # 提交更改
+          git commit -m "Deploy Hexo site - ${{ github.event.head_commit.message }}"
+          # 推送到 gh-pages 分支
+          git push origin gh-pages
+          echo "✅ Successfully deployed to gh-pages branch"
+        fi
 
     # 8. 构建摘要（可选）
     - name: Build Summary 📊
