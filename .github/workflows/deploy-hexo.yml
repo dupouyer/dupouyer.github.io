@@ -39,20 +39,34 @@ jobs:
         npm install -g hexo-cli
         npm install
 
-    # 5. 同步 PublishNote 文章到主目录
+    # 5. 初始化和验证 PublishNote 子模块
+    - name: Setup Submodules 📚
+      run: |
+        echo "Checking submodule status..."
+        git submodule status
+        echo "Initializing submodules..."
+        git submodule update --init --recursive
+        echo "Verifying PublishNote..."
+        ls -la PublishNote/
+        echo "Found $(find PublishNote -name "*.md" | wc -l) markdown files"
+
+    # 6. 同步 PublishNote 文章到主目录
     - name: Sync PublishNote Articles 📝
       run: |
-        # 从 PublishNote 子模块（根目录）复制所有 .md 文件到 _posts
+        # 确保目标目录存在
+        mkdir -p source/_posts
+        # 从 PublishNote 子模块复制所有 .md 文件到 _posts
         find PublishNote -name "*.md" -type f -exec cp {} source/_posts/ \;
         echo "✅ Synced $(find PublishNote -name "*.md" | wc -l) articles from PublishNote"
+        echo "📄 Total posts in source/_posts: $(ls -1 source/_posts/*.md 2>/dev/null | wc -l)"
 
-    # 6. 清理并生成静态站点
+    # 7. 清理并生成静态站点
     - name: Build Hexo Site 🏗️
       run: |
         hexo clean
         hexo generate
 
-    # 7. 部署到 gh-pages 分支
+    # 8. 部署到 gh-pages 分支
     - name: Deploy to gh-pages Branch 🚀
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -63,7 +77,7 @@ jobs:
         user_email: 'github-actions[bot]@users.noreply.github.com'
         commit_message: 'Deploy Hexo site - ${{ github.event.head_commit.message }}'
 
-    # 8. 构建摘要（可选）
+    # 9. 构建摘要（可选）
     - name: Build Summary 📊
       if: success()
       run: |
