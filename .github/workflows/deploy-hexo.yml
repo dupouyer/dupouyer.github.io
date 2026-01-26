@@ -54,44 +54,14 @@ jobs:
 
     # 7. 部署到 gh-pages 分支
     - name: Deploy to gh-pages Branch 🚀
-      run: |
-        # 配置 git 用户信息
-        git config --global user.name 'GitHub Actions'
-        git config --global user.email 'actions@github.com'
-
-        # 保存当前分支
-        CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-        # 初始化 gh-pages 分支（如果不存在）
-        git fetch origin gh-pages:gh-pages 2>/dev/null || git checkout --orphan gh-pages
-
-        # 暂存当前更改并切换到 gh-pages 分支
-        git stash push -m "Temp stash before deployment"
-        git checkout gh-pages 2>/dev/null || git checkout -b gh-pages
-
-        # 清理 gh-pages 分支中的旧文件（保留 .git）
-        find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
-
-        # 复制 public/ 目录的所有内容到当前目录
-        cp -r public/* .
-        cp -r public/.[!.]* . 2>/dev/null || true
-
-        # 添加所有更改
-        git add -A
-
-        # 检查是否有更改需要提交
-        if git diff --staged --quiet; then
-          echo "⚠️ No changes to deploy"
-        else
-          # 提交更改
-          git commit -m "Deploy Hexo site - ${{ github.event.head_commit.message }}"
-          # 推送到 gh-pages 分支
-          git push origin gh-pages --force
-          echo "✅ Successfully deployed to gh-pages branch"
-        fi
-
-        # 切换回原分支
-        git checkout "$CURRENT_BRANCH"
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        publish_branch: gh-pages
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: 'Deploy Hexo site - ${{ github.event.head_commit.message }}'
 
     # 8. 构建摘要（可选）
     - name: Build Summary 📊
