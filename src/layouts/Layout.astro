@@ -1,0 +1,36 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURLString = canonicalURL.href;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title ? `${title} | ` : ''}BLOG</title>
+    <link rel="canonical" href={canonicalURLString} />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">首页</a>
+        <a href="/blog/">博客</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>&copy; {new Date().getFullYear()} Dupouy. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

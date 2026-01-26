@@ -1,0 +1,82 @@
+name: Build and Deploy Astro
+
+# 触发条件：推送到 master 分支时自动构建
+on:
+  push:
+    branches:
+      - master
+  # 允许手动触发工作流
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. 检出代码（包括子模块）
+    - name: Checkout 🛎️
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive  # 递归克隆子模块（PublishNote）
+        fetch-depth: 0         # 获取完整的 git 历史
+
+    # 2. 设置 Node.js 环境
+    - name: Setup Node.js 🔧
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'     # 使用 Node.js 18 LTS
+        cache: 'npm'           # 缓存 npm 依赖以加快构建速度
+
+    # 3. 安装依赖
+    - name: Install Dependencies 📦
+      run: |
+        npm install
+
+    # 4. 初始化和验证 PublishNote 子模块
+    - name: Setup Submodules 📚
+      run: |
+        echo "Checking submodule status..."
+        git submodule status
+        echo "Initializing submodules..."
+        git submodule update --init --recursive
+        echo "Verifying PublishNote..."
+        ls -la PublishNote/
+        echo "Found $(find PublishNote -name "*.md" | wc -l) markdown files"
+
+    # 5. 同步 PublishNote 文章到 Astro content 目录
+    - name: Sync PublishNote Articles 📝
+      run: |
+        # 确保目标目录存在
+        mkdir -p src/content/blog
+        # 从 PublishNote 子模块复制所有 .md 文件到 content/blog
+        find PublishNote -name "*.md" -type f -exec cp {} src/content/blog/ \;
+        echo "✅ Synced $(find PublishNote -name "*.md" | wc -l) articles from PublishNote"
+        echo "📄 Total posts in src/content/blog: $(ls -1 src/content/blog/*.md 2>/dev/null | wc -l)"
+
+    # 6. 构建静态站点
+    - name: Build Astro Site 🏗️
+      run: |
+        npm run build
+
+    # 7. 部署到 gh-pages 分支
+    - name: Deploy to gh-pages Branch 🚀
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        publish_branch: gh-pages
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: 'Deploy Astro site - ${{ github.event.head_commit.message }}'
+
+    # 8. 构建摘要（可选）
+    - name: Build Summary 📊
+      if: success()
+      run: |
+        echo "### 🚀 Astro Site Deployed Successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Author:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "🌐 Site will be available at: https://dupouyer.github.io" >> $GITHUB_STEP_SUMMARY
