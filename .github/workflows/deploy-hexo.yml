@@ -39,13 +39,19 @@ jobs:
         npm install -g hexo-cli
         npm install
 
-    # 5. 清理并生成静态站点
+    # 5. 同步 PublishNote 文章到主目录
+    - name: Sync PublishNote Articles 📝
+      run: |
+        # 从 PublishNote 子模块复制所有 .md 文件到 _posts 根目录
+        find source/_posts/PublishNote -name "*.md" -type f -exec cp {} source/_posts/ \;
+
+    # 6. 清理并生成静态站点
     - name: Build Hexo Site 🏗️
       run: |
         hexo clean
         hexo generate
 
-    # 6. 部署到 GitHub Pages
+    # 7. 部署到 GitHub Pages
     - name: Deploy to GitHub Pages 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
@@ -57,7 +63,7 @@ jobs:
         COMMIT_NAME: 'GitHub Actions'
         COMMIT_EMAIL: 'actions@github.com'
 
-    # 7. 构建摘要（可选）
+    # 8. 构建摘要（可选）
     - name: Build Summary 📊
       if: success()
       run: |
