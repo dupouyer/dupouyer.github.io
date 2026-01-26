@@ -157,126 +157,126 @@ declare module 'astro:content' {
   slug: "anim";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "AssetBundle 序列化尺寸.md": {
 	id: "AssetBundle 序列化尺寸.md";
   slug: "assetbundle-序列化尺寸";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "AssetBundle序列化文件分析.md": {
 	id: "AssetBundle序列化文件分析.md";
   slug: "assetbundle序列化文件分析";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "AssetBundle研究报告.md": {
 	id: "AssetBundle研究报告.md";
   slug: "assetbundle研究报告";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "AssetBundle简析.md": {
 	id: "AssetBundle简析.md";
   slug: "assetbundle简析";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "BST.md": {
 	id: "BST.md";
   slug: "bst";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "BasicDataStructure.md": {
 	id: "BasicDataStructure.md";
   slug: "basicdatastructure";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "Blender 插件开发完整指南.md": {
 	id: "Blender 插件开发完整指南.md";
   slug: "blender-插件开发完整指南";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "Stable-Diffusion WebUI 新手入坑.md": {
 	id: "Stable-Diffusion WebUI 新手入坑.md";
   slug: "stable-diffusion-webui-新手入坑";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "Stripping-with-IL2CPP.md": {
 	id: "Stripping-with-IL2CPP.md";
   slug: "stripping-with-il2cpp";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "UPR使用.md": {
 	id: "UPR使用.md";
   slug: "upr使用";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "UWA使用.md": {
 	id: "UWA使用.md";
   slug: "uwa使用";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "Unity.md": {
 	id: "Unity.md";
   slug: "unity";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "Unity性能检查.md": {
 	id: "Unity性能检查.md";
   slug: "unity性能检查";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "sort.md": {
 	id: "sort.md";
   slug: "sort";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "unity序列化.md": {
 	id: "unity序列化.md";
   slug: "unity序列化";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "场景切换性能分析.md": {
 	id: "场景切换性能分析.md";
   slug: "场景切换性能分析";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 "自定义渲染管线-SRP.md": {
 	id: "自定义渲染管线-SRP.md";
   slug: "自定义渲染管线-srp";
   body: string;
   collection: "blog";
-  data: any
+  data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
 
@@ -288,5 +288,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("./../../src/content/config.js");
 }

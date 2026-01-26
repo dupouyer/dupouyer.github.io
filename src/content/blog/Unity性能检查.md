@@ -47,7 +47,7 @@ Unity Profile
 ## 逐帧分析
 ### 峰值帧为第 71 帧
 详情如下
-![71帧](./Unity性能检查/1.png)
+![71帧](/images/1.png)
 
 ### 函数耗时排序 TOP 5
 | Sample |  Time(ms) |
@@ -62,7 +62,7 @@ Unity Profile
 热点数据存在 Lua 响应 Scene Change 事件的调用  
 ReadObject 为正常情况，可忽略。 第三条为 Lua 的 GC ，时长可接受
 StartSwitchScene 数值有点高，添加更详细的 Sample 发现音频部分加载时长可能存在异常，但是时长还能接受，优先级不高。
-![详情](./Unity性能检查/2.png)
+![详情](/images/2.png)
 						
 ## 热点分析
 待续

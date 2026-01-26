@@ -13,10 +13,10 @@ tags: AssetBundle
 AssetBundle File 是一个包含多个文件的 **Archive** , 其结构会有一些小的变化取决于是 normal AssetBundle 还是 Scene AssetBundle
 
 Normal AssetBundle
-![Normal AssetBundle Structure](./AssetBundle研究报告/1.png)
+![Normal AssetBundle Structure](/images/1.png)
 
 Scene AssetBundle
-![Scene AssetBundle Structure](./AssetBundle研究报告/2.png)
+![Scene AssetBundle Structure](/images/2.png)
 　场景包还包含了预加载数据（PreloadData）、共享数据（shaderData）和全局光照数据（Global Illumination Data）并且针对场景及其内容的 Stream Loading 进行了优化
 
 ### The Manifest File
@@ -61,7 +61,7 @@ AssetBundle由两部分组成：Header 和 DataSegment
 
 文件头结构如下图：
 
-![AssetBundle Compreesion File](./AssetBundle研究报告/5.png)
+![AssetBundle Compreesion File](/images/5.png)
 
 具体的序列化结构如下：
 ``` csharp
@@ -133,7 +133,7 @@ struct AssetTable {
 
 ## 压缩方案
 AssetBundle 压缩后的大致文件组成：
-![AssetBundle Compreesion File](./AssetBundle研究报告/3.png)
+![AssetBundle Compreesion File](/images/3.png)
 
 Unity 在打包 AssetBundle 时会默认以 LZMA 格式进行压缩，可以通过 **BuildAssetBundleOptions** 调整压缩方案。  
 - BuildAssetBundleOptions.None(LZMA):  
@@ -159,7 +159,7 @@ Bundle 加载后，分为两部分存储，
 | WebRequest|  内存：无，Cache直读 | 内存：无，Cache直读 | 内存：无，LZMA解压 -> LZ4压缩|
 
 # AsetBundle 加载后的内存分析
-![AssetBundle 内存分析](./AssetBundle研究报告/4.png)
+![AssetBundle 内存分析](/images/4.png)
 
 ## SerializedFile 分析
 > 分别制作干净的 AssetBundle 包，加载进内存，通过 Profile 抓取内存分析大小并对比。Unity 版本 2017.4.x
