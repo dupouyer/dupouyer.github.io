@@ -1,36 +1,70 @@
 name: Build and Deploy Hexo
+
+# 触发条件：推送到 master 分支时自动构建
 on:
   push:
     branches:
       - master
+  # 允许手动触发工作流
+  workflow_dispatch:
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-    - name: Checkout 🛎️
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-      
-    - name: Use Node.js 12
-      uses: actions/setup-node@v3
-      with:
-        node-version: '12'
 
-    - name: Install Pandoc
+    steps:
+    # 1. 检出代码（包括子模块）
+    - name: Checkout 🛎️
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive  # 递归克隆子模块（PublishNote）
+        fetch-depth: 0         # 获取完整的 git 历史
+
+    # 2. 设置 Node.js 环境
+    - name: Setup Node.js 🔧
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'     # 使用 Node.js 18 LTS 版本
+        cache: 'npm'           # 缓存 npm 依赖以加快构建速度
+
+    # 3. 安装 Pandoc（用于某些 Hexo 插件的文档转换）
+    - name: Install Pandoc 📄
       run: |
-        sudo apt-get install pandoc
-        
-    - name: Install and Build 🔧 
+        sudo apt-get update
+        sudo apt-get install -y pandoc
+
+    # 4. 安装 Hexo CLI 和项目依赖
+    - name: Install Dependencies 📦
       run: |
-        npm install -g hexo
+        npm install -g hexo-cli
         npm install
+
+    # 5. 清理并生成静态站点
+    - name: Build Hexo Site 🏗️
+      run: |
         hexo clean
         hexo generate
-    - name: Deploy 🚀
+
+    # 6. 部署到 GitHub Pages
+    - name: Deploy to GitHub Pages 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ssh-key: ${{ secrets.DEPLOY_KEY }}
-        branch: gh-pages
-        folder: public
+        BRANCH: gh-pages           # 部署到的目标分支
+        FOLDER: public              # 要部署的文件夹（Hexo 生成的静态文件）
+        CLEAN: true                 # 自动清理目标分支上不存在的文件
+        COMMIT_MESSAGE: 'Deploy Hexo site - ${{ github.event.head_commit.message }}'
+        COMMIT_NAME: 'GitHub Actions'
+        COMMIT_EMAIL: 'actions@github.com'
+
+    # 7. 构建摘要（可选）
+    - name: Build Summary 📊
+      if: success()
+      run: |
+        echo "### 🚀 Hexo Site Deployed Successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Author:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "🌐 Site will be available at: https://dupouyer.github.io" >> $GITHUB_STEP_SUMMARY
