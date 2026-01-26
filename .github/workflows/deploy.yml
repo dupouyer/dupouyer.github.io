@@ -53,6 +53,13 @@ jobs:
         echo "✅ Synced $(find PublishNote -name "*.md" | wc -l) articles from PublishNote"
         echo "📄 Total posts in src/content/blog: $(ls -1 src/content/blog/*.md 2>/dev/null | wc -l)"
 
+    # 5.5. 修复图片路径引用
+    - name: Fix Image References 🔧
+      run: |
+        # 修复 markdown 文件中的相对图片路径，改为绝对路径
+        find src/content/blog -name "*.md" -type f -exec sed -i -E 's|\]\(\.\/[^)]+\/|\](/images/|g' {} \;
+        echo "✅ Fixed image references in markdown files"
+
     # 6. 构建静态站点
     - name: Build Astro Site 🏗️
       run: |
