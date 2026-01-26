@@ -83,16 +83,18 @@ plugins: hexo-generator-sitemap
 #   branch: master
 
 # hexo-filter-responsive-images
+# 注意: 此插件已禁用，因为 sharp 依赖在 CI 环境中安装失败
+# 如需启用响应式图片功能，请先解决 sharp 版本兼容性问题
 # Dependencies: https://github.com/hexojs/hexo-filter-responsive-images
-responsive_images:
-  pattern: '**/*.+(png|jpg|jpeg)'
-  sizes:
-    small:
-      width: 800
-    medium:
-      width: 1200
-    large:
-      width: 2000
+# responsive_images:
+#   pattern: '**/*.+(png|jpg|jpeg)'
+#   sizes:
+#     small:
+#       width: 800
+#     medium:
+#       width: 1200
+#     large:
+#       width: 2000
 
 live2d:
   enable: true
