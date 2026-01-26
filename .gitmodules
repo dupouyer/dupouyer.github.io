@@ -1,0 +1,3 @@
+[submodule "PublishNote"]
+	path = PublishNote
+	url = https://github.com/dupouyer/PublishNote.git

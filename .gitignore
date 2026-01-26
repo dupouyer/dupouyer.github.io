@@ -6,4 +6,8 @@ node_modules/
 public/
 .deploy*/
 *.pdf
-*.pdf
+
+# Auto-synced from PublishNote submodule (copied by CI/CD)
+# These files are automatically copied during build, don't commit them
+source/_posts/Blender*.md
+source/_posts/Stable-Diffusion*.md

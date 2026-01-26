@@ -42,8 +42,9 @@ jobs:
     # 5. 同步 PublishNote 文章到主目录
     - name: Sync PublishNote Articles 📝
       run: |
-        # 从 PublishNote 子模块复制所有 .md 文件到 _posts 根目录
-        find source/_posts/PublishNote -name "*.md" -type f -exec cp {} source/_posts/ \;
+        # 从 PublishNote 子模块（根目录）复制所有 .md 文件到 _posts
+        find PublishNote -name "*.md" -type f -exec cp {} source/_posts/ \;
+        echo "✅ Synced $(find PublishNote -name "*.md" | wc -l) articles from PublishNote"
 
     # 6. 清理并生成静态站点
     - name: Build Hexo Site 🏗️
