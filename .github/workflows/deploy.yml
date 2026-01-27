@@ -20,19 +20,26 @@ jobs:
         submodules: recursive  # 递归克隆子模块（PublishNote）
         fetch-depth: 0         # 获取完整的 git 历史
 
-    # 2. 设置 Node.js 环境
+    # 2. 安装 pnpm
+    - name: Setup pnpm 🔧
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+
+    # 3. 设置 Node.js 环境
     - name: Setup Node.js 🔧
       uses: actions/setup-node@v4
       with:
         node-version: '18'     # 使用 Node.js 18 LTS
-        cache: 'npm'           # 缓存 npm 依赖以加快构建速度
+        cache: 'pnpm'          # 缓存 pnpm 依赖以加快构建速度
+        cache-dependency-path: 'Site/Astro/pnpm-lock.yaml'
 
-    # 3. 安装依赖
+    # 4. 安装依赖
     - name: Install Dependencies 📦
       run: |
-        npm install
+        cd Site/Astro && pnpm install --frozen-lockfile
 
-    # 4. 初始化和验证 PublishNote 子模块
+    # 5. 初始化和验证 PublishNote 子模块
     - name: Setup Submodules 📚
       run: |
         echo "Checking submodule status..."
@@ -43,40 +50,40 @@ jobs:
         ls -la PublishNote/
         echo "Found $(find PublishNote -name "*.md" | wc -l) markdown files"
 
-    # 5. 同步 PublishNote 文章到 Astro content 目录
+    # 6. 同步 PublishNote 文章到 Astro content 目录
     - name: Sync PublishNote Articles 📝
       run: |
         # 确保目标目录存在
-        mkdir -p src/content/blog
+        mkdir -p Site/Astro/src/content/blog
         # 从 PublishNote 子模块复制所有 .md 文件到 content/blog
-        find PublishNote -name "*.md" -type f -exec cp {} src/content/blog/ \;
+        find PublishNote -name "*.md" -type f -exec cp {} Site/Astro/src/content/blog/ \;
         echo "✅ Synced $(find PublishNote -name "*.md" | wc -l) articles from PublishNote"
-        echo "📄 Total posts in src/content/blog: $(ls -1 src/content/blog/*.md 2>/dev/null | wc -l)"
+        echo "📄 Total posts in Site/Astro/src/content/blog: $(ls -1 Site/Astro/src/content/blog/*.md 2>/dev/null | wc -l)"
 
-    # 5.5. 修复图片路径引用
+    # 7. 修复图片路径引用
     - name: Fix Image References 🔧
       run: |
         # 修复 markdown 文件中的相对图片路径，改为绝对路径
-        find src/content/blog -name "*.md" -type f -exec sed -i -E 's|\]\(\.\/[^)]+\/|\](/images/|g' {} \;
+        find Site/Astro/src/content/blog -name "*.md" -type f -exec sed -i -E 's|\]\(\.\/[^)]+\/|\](/images/|g' {} \;
         echo "✅ Fixed image references in markdown files"
 
-    # 6. 构建静态站点
+    # 8. 构建静态站点
     - name: Build Astro Site 🏗️
       run: |
-        npm run build
+        cd Site/Astro && pnpm run build
 
-    # 7. 部署到 gh-pages 分支
+    # 9. 部署到 gh-pages 分支
     - name: Deploy to gh-pages Branch 🚀
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+        publish_dir: ./Site/Astro/dist
         publish_branch: gh-pages
         user_name: 'github-actions[bot]'
         user_email: 'github-actions[bot]@users.noreply.github.com'
         commit_message: 'Deploy Astro site - ${{ github.event.head_commit.message }}'
 
-    # 8. 构建摘要（可选）
+    # 10. 构建摘要（可选）
     - name: Build Summary 📊
       if: success()
       run: |
