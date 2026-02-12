@@ -61,6 +61,8 @@ jobs:
 
     # 7. 构建静态站点
     - name: Build Astro Site 🏗️
+      env:
+        STATIC_BUILD: 'true'
       run: |
         cd Site/Astro && pnpm run build
 
