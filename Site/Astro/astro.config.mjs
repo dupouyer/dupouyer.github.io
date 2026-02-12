@@ -55,9 +55,7 @@ function selectAdapter() {
   const isDev = process.env.NODE_ENV !== 'production';
 
   // Determine if adapter is needed
-  // STATIC_BUILD=true forces static output (used by GitHub Pages deployment)
-  const isStaticBuild = process.env.STATIC_BUILD === 'true';
-  const needsAdapter = isStaticBuild ? false : (isDev ? cmsConfig?.enabled : true);
+  const needsAdapter = isDev ? cmsConfig?.enabled : true;
 
   // Static build without adapter
   if (!needsAdapter) {
