@@ -1,21 +1,14 @@
 ---
-title: UPR使用
-date: 2026-01-27
+title: "UPR使用"
+date: 2020-06-04
+updated: 2020-06-04
+description: "Unity UPR 的使用介绍"
 categories:
   - Unity
 tags:
-  - Unity
-  - UPR
+  - tools
 ---
 
----
-title: UPR使用
-date: 2020-06-04 15:56:37
-updated: 2020-06-04 15:56:37
-description: Unity UPR 的使用介绍
-categories: Unity
-tags: tools
----
 
 # 环境准备
 ## 项目准备

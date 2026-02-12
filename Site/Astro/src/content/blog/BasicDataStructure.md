@@ -1,6 +1,7 @@
 ---
-title: BasicDataStructure
-date: 2026-01-27
+title: "基础数据结构"
+date: 2020-04-07
+updated: 2020-04-07
 categories:
   - 算法
 tags:
@@ -8,16 +9,6 @@ tags:
   - 数据结构
 ---
 
----
-title: 基础数据结构
-date: 2020-04-07 19:30:00
-updated: 2020-04-07 19:30:00
-categories:
-- 算法
-tags:
-- 算法
-- 数据结构
----
 
 > 基本的数据结构类型
 

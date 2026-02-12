@@ -1,23 +1,14 @@
 ---
-title: AssetBundle简析
-date: 2026-01-27
+title: "AssetBundle简析"
+date: 2020-06-18
+updated: 2020-06-18
+description: "一些使用 AssetBundle 时需要了解的知识点"
 categories:
   - Unity
 tags:
   - AssetBundle
 ---
 
----
-title: AssetBundle简析
-date: 2020-06-18 16:57:21
-updated: 2020-06-18 16:57:21
-description: 一些使用 AssetBundle 时需要了解的知识点
-categories:
-- Unity
-tags:
-- AssetBundle
-
----
 
 # AssetBundle 加载流程
 加载流程可归纳为以下两种

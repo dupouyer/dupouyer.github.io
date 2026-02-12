@@ -1,21 +1,14 @@
 ---
-title: Unity性能检查
-date: 2026-01-27
+title: "Unity性能检查"
+date: 2020-06-08
+updated: 2020-06-08
+description: "使用 Unity Profile 进行 Unity 项目的性能检查案例"
 categories:
   - Unity
 tags:
-  - Unity
-  - 性能优化
+  - performance analysis
 ---
 
----
-title: Unity性能检查
-date: 2020-06-08 20:37:12
-updated: 2020-06-08 20:37:12
-description: 使用 Unity Profile 进行 Unity 项目的性能检查案例
-categories: Unity
-tags: performance analysis
----
 # 测试工具
 Unity Profile					
 

@@ -1,22 +1,14 @@
 ---
-title: Unity
-date: 2026-01-27
+title: "Unity 总结"
+date: 2019-03-07
+updated: 2019-03-07
 categories:
   - Unity
 tags:
   - Unity
+  - 编程语言
 ---
 
----
-title: Unity 总结
-date: 2019-03-07 19:30:00
-updated: 2019-03-07 19:30:00
-categories: 
-- Unity
-tags:
-- Unity
-- 编程语言
----
 
 ## 业务
 ### 编程语言

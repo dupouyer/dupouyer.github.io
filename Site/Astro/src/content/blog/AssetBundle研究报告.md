@@ -1,20 +1,14 @@
 ---
-title: AssetBundle研究报告
-date: 2026-01-27
+title: "AssetBundle研究报告"
+date: 2020-06-24
+updated: 2020-06-24
+description: "对 AssetBundle 的系统性研究报告"
 categories:
   - Unity
 tags:
   - AssetBundle
 ---
 
----
-title: AssetBundle研究报告
-date: 2020-06-24 14:32:32
-updated: 2020-06-24 14:32:32
-description: 对 AssetBundle 的系统性研究报告
-categories: Unity
-tags: AssetBundle
----
 
 # AssetBundle 文件结构
 ## 基本介绍

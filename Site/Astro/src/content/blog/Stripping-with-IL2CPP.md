@@ -1,20 +1,13 @@
 ---
-title: Stripping-with-IL2CPP
-date: 2026-01-27
+title: "Stripping with IL2CPP"
+date: 2020-06-02
+updated: 2020-06-02
 categories:
   - Unity
 tags:
-  - Unity
-  - IL2CPP
+  - 优化
 ---
 
----
-title: Stripping with IL2CPP
-date: 2020-06-02 11:26:52
-updated: 2020-06-02 11:26:52
-categories: Unity
-tags: 优化
----
 
 # 目标
 项目中为了减少打包后的包体大小，针对 IL2CPP 的打包方案做包体缩小的优化

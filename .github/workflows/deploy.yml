@@ -53,26 +53,18 @@ jobs:
     # 6. 同步 PublishNote 文章到 Astro content 目录
     - name: Sync PublishNote Articles 📝
       run: |
-        # 确保目标目录存在
-        mkdir -p Site/Astro/src/content/blog
-        # 从 PublishNote 子模块复制所有 .md 文件到 content/blog
-        find PublishNote -name "*.md" -type f -exec cp {} Site/Astro/src/content/blog/ \;
-        echo "✅ Synced $(find PublishNote -name "*.md" | wc -l) articles from PublishNote"
-        echo "📄 Total posts in Site/Astro/src/content/blog: $(ls -1 Site/Astro/src/content/blog/*.md 2>/dev/null | wc -l)"
+        # 使用 convert-articles.js 处理文章：
+        # - 解析并重建 frontmatter（保留原始标题、日期等元数据）
+        # - 转换 categories/tags 为 YAML 数组格式
+        # - 复制关联的图片目录到 content/blog
+        node convert-articles.js
 
-    # 7. 修复图片路径引用
-    - name: Fix Image References 🔧
-      run: |
-        # 修复 markdown 文件中的相对图片路径，改为绝对路径
-        find Site/Astro/src/content/blog -name "*.md" -type f -exec sed -i -E 's|\]\(\.\/[^)]+\/|\](/images/|g' {} \;
-        echo "✅ Fixed image references in markdown files"
-
-    # 8. 构建静态站点
+    # 7. 构建静态站点
     - name: Build Astro Site 🏗️
       run: |
         cd Site/Astro && pnpm run build
 
-    # 9. 部署到 gh-pages 分支
+    # 8. 部署到 gh-pages 分支
     - name: Deploy to gh-pages Branch 🚀
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -83,7 +75,7 @@ jobs:
         user_email: 'github-actions[bot]@users.noreply.github.com'
         commit_message: 'Deploy Astro site - ${{ github.event.head_commit.message }}'
 
-    # 10. 构建摘要（可选）
+    # 9. 构建摘要（可选）
     - name: Build Summary 📊
       if: success()
       run: |

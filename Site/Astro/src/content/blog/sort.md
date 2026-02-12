@@ -1,6 +1,7 @@
 ---
-title: sort
-date: 2026-01-27
+title: "排序"
+date: 2020-04-08
+updated: 2020-04-08
 categories:
   - 算法
 tags:
@@ -8,16 +9,6 @@ tags:
   - 排序
 ---
 
----
-title: 排序
-date: 2020-04-08 19:12:00
-updated: 2020-04-08 19:12:00
-categories:
-- 算法
-tags:
-- 算法
-- 排序
----
 
 ## 冒泡排序
 ![avatar](http://s0.lgstatic.com/i/image2/M01/91/0B/CgoB5l2IiW2AUgXzAEVU1vdS3ek726.gif)

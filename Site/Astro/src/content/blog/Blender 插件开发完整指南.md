@@ -1,20 +1,17 @@
 ---
-title: Blender 插件开发完整指南
-date: 2026-01-27
+title: "Blender 插件开发完整指南"
+date: 2025-01-26
+updated: 2025-01-26
 categories:
-  - 工具
+  - DCC
+  - Blender
 tags:
   - Blender
-  - 插件
+  - Python
+  - 插件开发
+  - DCC
 ---
 
----
-title: Blender 插件开发完整指南
-date: 2025-01-26 12:00:00
-updated: 2025-01-26 12:00:00
-categories: [DCC, Blender]
-tags: [Blender, Python, 插件开发, DCC]
----
 
 # Blender 插件开发完整指南
 

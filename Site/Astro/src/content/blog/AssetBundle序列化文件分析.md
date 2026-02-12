@@ -1,21 +1,14 @@
 ---
-title: AssetBundle序列化文件分析
-date: 2026-01-27
+title: "AssetBundle序列化文件分析"
+date: 2020-06-19
+updated: 2020-06-19
+description: "AssetBundle 在被加载后，不管通过何种方式加载，都会创建一个 AssetBundle 的 SerializedFile。 本文尝试对其 Size 受那些因素影响进行分析。"
 categories:
   - Unity
 tags:
   - AssetBundle
-  - 序列化
 ---
 
----
-title: AssetBundle序列化文件分析
-date: 2020-06-19 16:22:34
-updated: 2020-06-19 16:22:34
-description: AssetBundle 在被加载后，不管通过何种方式加载，都会创建一个 AssetBundle 的 SerializedFile。 本文尝试对其 Size 受那些因素影响进行分析。
-categories: Unity
-tags: AssetBundle
----
 
 # 前言
 AssetBundle 在被加载后，不管通过何种方式加载，都会创建一个 AssetBundle 的 SerializedFile。 本文尝试对其 Size 受那些因素影响进行分析。

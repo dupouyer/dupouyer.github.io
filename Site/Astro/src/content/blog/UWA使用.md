@@ -1,20 +1,13 @@
 ---
-title: UWA使用
-date: 2026-01-27
+title: "UWA使用"
+date: 2020-06-03
+updated: 2020-06-03
 categories:
   - Unity
 tags:
-  - Unity
-  - UWA
+  - tools
 ---
 
----
-title: UWA使用
-date: 2020-06-03 18:15:37
-updated: 2020-06-03 18:15:37
-categories: Unity
-tags: tools
----
 
 # 环境准备
 ## 准备内容

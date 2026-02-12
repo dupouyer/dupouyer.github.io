@@ -1,22 +1,13 @@
 ---
-title: Anim
-date: 2026-01-27
+title: "动画"
+date: 2019-04-20
+updated: 2023-03-20
 categories:
   - Unity
 tags:
-  - Unity
   - 动画
 ---
 
----
-title: 动画
-date: 2019-04-20 19:30:00
-updated: 2023-03-20 19:30:00
-categories:
-- Unity
-tags:
-- 动画
----
 
 # 动画
 

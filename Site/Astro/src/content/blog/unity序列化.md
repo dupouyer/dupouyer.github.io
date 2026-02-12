@@ -1,6 +1,7 @@
 ---
-title: unity序列化
-date: 2026-01-27
+title: "Unity序列化"
+date: 2020-05-18
+updated: 2020-05-18
 categories:
   - Unity
 tags:
@@ -8,16 +9,6 @@ tags:
   - 序列化
 ---
 
----
-title: Unity序列化
-date: 2020-05-18 18:16:10
-updated: 2020-05-18 18:16:10
-categories: 
-- Unity
-tags:
-- Unity
-- 序列化
----
 
 # 概念
 序列化是为了将对象存储（或传输）到内存、数据库或文件中，把对象状态转化为一组字节的过程

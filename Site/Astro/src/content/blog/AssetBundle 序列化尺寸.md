@@ -1,20 +1,14 @@
 ---
-title: AssetBundle 序列化尺寸
-date: 2026-01-27
+title: "AssetBundle序列化尺寸"
+date: 2020-06-23
+updated: 2020-06-23
+description: "上次的分析案例做的不够，变量太多。结果不具有指导意义，这里重新再弄一次"
 categories:
   - Unity
 tags:
   - AssetBundle
 ---
 
----
-title: AssetBundle序列化尺寸
-date: 2020-06-23 16:22:34
-updated: 2020-06-23 16:22:34
-description: 上次的分析案例做的不够，变量太多。结果不具有指导意义，这里重新再弄一次
-categories: Unity
-tags: AssetBundle
----
 
 # AssetBundle 加载进内存的序列化文件分析
 ## Asset AssetBundle 序列化分析
