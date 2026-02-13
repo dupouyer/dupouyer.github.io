@@ -13,7 +13,7 @@
 site:
   title: 小熊猫的技术工坊 # 网站名称
   alternate: red-panda-dev # 网站英文名称
-  subtitle: "" # 网站副标题
+  subtitle: 艺术与程序的交叉领域，爱吃苹果的红熊猫 # 网站副标题
   name: sdoo # 作者名称 - 请修改为你的名字
   description: 一个基于 Astro 的现代化博客主题 # 网站描述
   avatar: /img/avatar.webp # 网站头像
